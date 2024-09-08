@@ -1,0 +1,2 @@
+# JPokeBattle
+Pokemon RBY battle
