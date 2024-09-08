@@ -57,7 +57,7 @@ public class ChoosePanel extends JPanel {
         	
             JButton buttonPokemon = new JButton(trainer.getTeam()[i].getName());
             buttonPokemon.setBackground(Constants.BACKGROUND_COLOR);
-            buttonPokemon.setFont(new Font(Constants.FIRST_FONT.getName(), Font.PLAIN, 30));
+            buttonPokemon.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 30));
             buttonPokemon.setFocusable(false);
             
             PokemonButtonListener pokemonButtonListener = new PokemonButtonListener(i, gameLogic, trainer);
@@ -79,7 +79,7 @@ public class ChoosePanel extends JPanel {
         	
             JButton buttonMove = new JButton(trainer.getTeam()[0].getMoves().get(i));
             buttonMove.setBackground(Constants.BACKGROUND_COLOR);
-            buttonMove.setFont(new Font(Constants.FIRST_FONT.getName(), Font.PLAIN, 30));
+            buttonMove.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 30));
             buttonMove.setFocusable(false);
             
             MoveButtonListener moveButtonListener = new MoveButtonListener(i, gameLogic, trainer);
@@ -162,7 +162,7 @@ public class ChoosePanel extends JPanel {
         	
             JButton buttonMove = new JButton(newTrainer.getTeam()[0].getMoves().get(i));
             buttonMove.setBackground(Constants.BACKGROUND_COLOR);
-            buttonMove.setFont(new Font(Constants.FIRST_FONT.getName(), Font.PLAIN, 30));
+            buttonMove.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 30));
             buttonMove.setFocusable(false);
 
             MoveButtonListener moveButtonListener = new MoveButtonListener(i, gameLogic, newTrainer);
