@@ -39,20 +39,16 @@ public class KeyHandler implements KeyListener{
 			if(code == KeyEvent.VK_S) {
 				
 				gp.ui.commandNum++;
-				if(gp.ui.commandNum > 2) gp.ui.commandNum = 2;
+				if(gp.ui.commandNum > 1) gp.ui.commandNum = 1;
 			}
 			if(code == KeyEvent.VK_ENTER) {
 				
 				if(gp.ui.commandNum == 0) {
 					
 					// play!
-					gp.gameState = gp.playState;
-				}
-				if(gp.ui.commandNum == 1) {
-					
 					gp.gameState = gp.profileState;
 				}
-				if(gp.ui.commandNum == 2) {
+				if(gp.ui.commandNum == 1) {
 					
 					// close program
 					System.exit(0);
@@ -180,7 +176,7 @@ public class KeyHandler implements KeyListener{
                 if (selectedOption == 3) {
                     gp.gameState = gp.titleState;
                 } else {
-                    ProfiloUtente profiloSelezionato = profili.get(selectedOption);
+                    // ProfiloUtente profiloSelezionato = profili.get(selectedOption);
                     gp.gameState = gp.playState;
                     // Esegui altre azioni necessarie con il profilo selezionato
                 }

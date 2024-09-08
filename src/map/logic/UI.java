@@ -115,25 +115,18 @@ public class UI {
 	    g2.setColor(Color.black);
 
 	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 36F));
-	    text = "new game";
+	    text = "play game";
 	    x = getXForCenteredText(text);
-	    y += gp.tileSize * 4;
+	    y += gp.tileSize * 3;
 	    g2.drawString(text, x, y);
 	    if (commandNum == 0) {
-	        g2.drawString(">", x - gp.tileSize, y);
-	    }
-	    text = "load game";
-	    x = getXForCenteredText(text);
-	    y += gp.tileSize;
-	    g2.drawString(text, x, y);
-	    if (commandNum == 1) {
 	        g2.drawString(">", x - gp.tileSize, y);
 	    }
 	    text = "quit game";
 	    x = getXForCenteredText(text);
 	    y += gp.tileSize;
 	    g2.drawString(text, x, y);
-	    if (commandNum == 2) {
+	    if (commandNum == 1) {
 	        g2.drawString(">", x - gp.tileSize, y);
 	    }
 
@@ -243,38 +236,43 @@ public class UI {
 
 	    g2.drawString(text, x, y);
 
-	    // Disegna la freccia ">" solo per il profilo selezionato
-	    if (profileChoice == 0) {
-	        g2.drawString(">", x - gp.tileSize, y + gp.tileSize);
-	    }
+	    // Disegna "Profilo 1" e la freccia se selezionato
 	    text = "Profilo 1";
+	    x = getXForCenteredText(text);
 	    y += gp.tileSize;
 	    g2.drawString(text, x, y);
-
-	    // Disegna la freccia ">" solo per il profilo selezionato
-	    if (profileChoice == 1) {
-	        g2.drawString(">", x - gp.tileSize, y + gp.tileSize);
+	    if (profileChoice == 0) {
+	        g2.drawString(">", x - gp.tileSize, y);
 	    }
+
+	    // Disegna "Profilo 2" e la freccia se selezionato
 	    text = "Profilo 2";
+	    x = getXForCenteredText(text);
 	    y += gp.tileSize;
 	    g2.drawString(text, x, y);
-
-	    // Disegna la freccia ">" solo per il profilo selezionato
-	    if (profileChoice == 2) {
-	        g2.drawString(">", x - gp.tileSize, y + gp.tileSize);
+	    if (profileChoice == 1) {
+	        g2.drawString(">", x - gp.tileSize, y);
 	    }
+
+	    // Disegna "Profilo 3" e la freccia se selezionato
 	    text = "Profilo 3";
+	    x = getXForCenteredText(text);
 	    y += gp.tileSize;
 	    g2.drawString(text, x, y);
-
-	    // Opzione "indietro"
-	    if (profileChoice == 3) {
-	        g2.drawString(">", x - gp.tileSize, y + gp.tileSize);
+	    if (profileChoice == 2) {
+	        g2.drawString(">", x - gp.tileSize, y);
 	    }
+
+	    // Disegna "indietro" e la freccia se selezionato
 	    text = "indietro";
+	    x = getXForCenteredText(text);
 	    y += gp.tileSize;
 	    g2.drawString(text, x, y);
+	    if (profileChoice == 3) {
+	        g2.drawString(">", x - gp.tileSize, y);
+	    }
 
+	    // Disegna le immagini
 	    int img1X = 50;
 	    int img1Y = gp.screenHeight - image1.getHeight() - 50;
 
@@ -284,6 +282,7 @@ public class UI {
 	    g2.drawImage(image1, img1X, img1Y, null);
 	    g2.drawImage(image2, img2X, img2Y, null);
 	}
+
 
 	public void drawSubWindow(int x,int y,int width,int height) {
 		
