@@ -214,8 +214,8 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver{
 	}
 	public void startBattle() {
 		
-		Trainer primoAllenatore = new Trainer(new Pokemon[]{new Squirtle(), new Bulbasaur(), new Charmander()}, "Red");
-		Trainer secondoAllenatore = new Trainer(new Pokemon[]{new Bulbasaur(), new Charmander(), new Squirtle()}, "Blue");
+		Trainer primoAllenatore = new Trainer(new Pokemon[]{new Squirtle() /*, new Bulbasaur(), new Charmander()*/}, "Red");
+		Trainer secondoAllenatore = new Trainer(new Pokemon[]{new Bulbasaur()/*, new Charmander(), new Squirtle()*/}, "Blue");
         Battle scontro = new Battle(primoAllenatore, secondoAllenatore);
         GameLogic gameLogic = new GameLogic(primoAllenatore, secondoAllenatore, scontro, null, null);
         

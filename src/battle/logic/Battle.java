@@ -1,5 +1,9 @@
 package battle.logic;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * The Battle class represents a Pokémon battle between two trainers.
  */
@@ -46,12 +50,39 @@ public class Battle {
 	public int endOfBattle() {
 		
 		if (!firstTrainer.pokemonAvailable()) {
+			saveStats();
 	        return 2;	// Second trainer wins
 	    } else if (!secondTrainer.pokemonAvailable()) {
+	    	saveStats();
 	    	return 1;	// First trainer wins
 	    } else {
 	        return 0;	// Battle is still ongoing
 	    }
 		
 	}
+	
+	// Method to save stats to a file
+    public void saveStats() {
+    	
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter("res/profiles/battle_one.txt"))) {
+
+            writer.write(firstTrainer.getAllAttributes());
+            writePokemonStats(writer, firstTrainer.getTeam());
+
+            writer.write(secondTrainer.getAllAttributes());
+            writePokemonStats(writer, secondTrainer.getTeam());
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Helper method to write Pokémon stats
+    private void writePokemonStats(BufferedWriter writer, Pokemon[] team) throws IOException {
+        for (Pokemon pokemon : team) {
+            writer.write(pokemon.getAllAttributes());
+        }
+    }
 }
+

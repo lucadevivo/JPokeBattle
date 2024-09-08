@@ -61,6 +61,68 @@ public class Pokemon {
 	// EV type for this Pokémon
 	private TypeEV typeEv;
 	
+	/**
+     * Constructor for a Pokémon with additional attributes.
+     * 
+     * @param name The name of the Pokémon.
+     * @param type The type of the Pokémon.
+     * @param hp The base HP of the Pokémon.
+     * @param atk The base attack of the Pokémon.
+     * @param def The base defense of the Pokémon.
+     * @param vel The base speed of the Pokémon.
+     * @param Special The base special of the Pokémon.
+     * @param baseXp The base experience of the Pokémon.
+     * @param initialMoves The initial moves of the Pokémon.
+     * @param evolutions The possible evolutions of the Pokémon.
+     * @param typeEv The EV type the Pokémon grants.
+     * @param ivHp Individual value for HP.
+     * @param ivAtk Individual value for attack.
+     * @param ivDef Individual value for defense.
+     * @param ivVel Individual value for speed.
+     * @param ivSpecial Individual value for special.
+     * @param evHp Effort value for HP.
+     * @param evAtk Effort value for attack.
+     * @param evDef Effort value for defense.
+     * @param evVel Effort value for speed.
+     * @param evSpecial Effort value for special.
+     */
+	
+    public Pokemon(String name, Type type, int hp, int atk, int def, int vel, int Special, int baseXp,
+                   String[] initialMoves, List<Evolution> evolutions, TypeEV typeEv,
+                   int ivHp, int ivAtk, int ivDef, int ivVel, int ivSpecial,
+                   int evHp, int evAtk, int evDef, int evVel, int evSpecial) {
+        
+        this.name = name;
+        this.type = type;
+        this.maxHp = hp;
+        this.hp = this.maxHpCurrent = generateHp(hp, ivHp, evHp);
+        this.def = def;
+        this.defCurrent = generateStat(def, ivDef, evDef);
+        this.atk = atk;
+        this.atkCurrent = generateStat(atk, ivAtk, evAtk);
+        this.vel = vel;
+        this.velCurrent = generateStat(vel, ivVel, evVel);
+        this.Special = Special;
+        this.SpecialCurrent = generateStat(Special, ivSpecial, evSpecial);
+        this.baseXp = baseXp;
+        this.moves = new ArrayList<>();
+        for (String move : initialMoves) { this.moves.add(move); }
+        this.unlockableMoves = new HashMap<>();
+        this.evolutions = evolutions;
+        this.typeEv = typeEv;
+
+        // Set individual and effort values
+        this.ivHp = ivHp;
+        this.ivAtk = ivAtk;
+        this.ivDef = ivDef;
+        this.ivVel = ivVel;
+        this.ivSpecial = ivSpecial;
+        this.evHp = evHp;
+        this.evAtk = evAtk;
+        this.evDef = evDef;
+        this.evVel = evVel;
+        this.evSpecial = evSpecial;
+    }
 	
 	/**
      * Constructor for a Pokémon.
@@ -525,4 +587,41 @@ public class Pokemon {
 	            ", evSpecial=" + evSpecial +
 	            '}';
 	}
+	
+	/**
+     * Returns a string with all the Pokémon's attributes, each on a new line.
+     * 
+     * @return A string representing all the Pokémon's attributes.
+     */
+    public String getAllAttributes() {
+    	
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(name).append("\n")
+          .append(type).append("\n")
+          .append(level).append("\n")
+          .append(exp).append("\n")
+          .append(hp).append("\n")
+          .append(atk).append("\n")
+          .append(def).append("\n")
+          .append(vel).append("\n")
+          .append(Special).append("\n")
+          .append(baseXp).append("\n")
+          .append(ivHp).append("\n")
+          .append(ivAtk).append("\n")
+          .append(ivDef).append("\n")
+          .append(ivVel).append("\n")
+          .append(ivSpecial).append("\n")
+          .append(evHp).append("\n")
+          .append(evAtk).append("\n")
+          .append(evDef).append("\n")
+          .append(evVel).append("\n")
+          .append(evSpecial).append("\n")
+          .append(moves).append("\n")
+          .append(unlockableMoves).append("\n")
+          .append(evolutions).append("\n")
+          .append(typeEv).append("\n");
+
+        return sb.toString();
+    }
 }

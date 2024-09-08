@@ -4,9 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-import battle.logic.GestoreProfili;
-import battle.logic.ProfiloUtente;
-
 public class KeyHandler implements KeyListener{
 
 	GamePanel gp;
@@ -149,15 +146,13 @@ public class KeyHandler implements KeyListener{
 		// PROFILE STATE
 		else if (gp.gameState == gp.profileState) {
 
-            List<ProfiloUtente> profili = GestoreProfili.caricaProfili();
-            int numeroProfili = profili.size();
 
             if (code == KeyEvent.VK_W) {
             	
                 gp.ui.profileChoice--;
                 if (gp.ui.profileChoice < 0) {
                 	
-                    gp.ui.profileChoice = numeroProfili; // Loop alla fine
+                    gp.ui.profileChoice = 3; // Loop alla fine
                 }
             }
             if (code == KeyEvent.VK_S) {
