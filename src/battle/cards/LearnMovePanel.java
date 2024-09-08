@@ -55,7 +55,7 @@ public class LearnMovePanel extends JPanel {
         
         //set the text to display
         messageField = new JTextField("New move available:  " + lastUnlockedMove + ", select the move to change it to");
-        messageField.setFont(new Font(Constants.FIRST_FONT.getName(), Font.PLAIN, 40));
+        messageField.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 40));
         messageField.setBackground(Constants.BACKGROUND_COLOR);
         messageField.setHorizontalAlignment(JTextField.CENTER);
         messageField.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -83,7 +83,7 @@ public class LearnMovePanel extends JPanel {
         // Initialize "Don't learn" button
         JButton buttonMove = new JButton("Don't learn");
         buttonMove.setBackground(Constants.BACKGROUND_COLOR);
-        buttonMove.setFont(new Font("Pokemon Fire Red", Font.PLAIN, 30));
+        buttonMove.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 30));
         buttonMove.setFocusable(false);
         
         LearnMoveButtonListener learnMoveButtonListener = new LearnMoveButtonListener(numButtonsMoves, trainer, firstTrainer, textJLayeredPanel, lastUnlockedMove);
@@ -183,7 +183,7 @@ public class LearnMovePanel extends JPanel {
         	
             JButton buttonMove = new JButton(trainer.getTeam()[0].getMoves().get(i));
             buttonMove.setBackground(Constants.BACKGROUND_COLOR);
-            buttonMove.setFont(new Font(Constants.FIRST_FONT.getName(), Font.PLAIN, 30));
+            buttonMove.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 30));
             buttonMove.setFocusable(false);
             
             LearnMoveButtonListener learnMoveButtonListener = new LearnMoveButtonListener(i, trainer, firstTrainer, textJLayeredPanel, lastUnlockedMove);

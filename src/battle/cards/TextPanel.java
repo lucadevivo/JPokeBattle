@@ -35,14 +35,14 @@ public class TextPanel extends JPanel {
 
         // Initialize upper label
         upperLabel = new JLabel(upperText, upperIcon, SwingConstants.LEFT);
-        upperLabel.setFont(new Font(Constants.FIRST_FONT.getName(), Font.BOLD, 35));
+        upperLabel.setFont(Constants.FIRST_FONT.deriveFont(Font.BOLD, 35));
         upperLabel.setBackground(Constants.BACKGROUND_COLOR);
         upperLabel.setIconTextGap(20);
         upperLabel.setOpaque(true);
 
         // Initialize lower label
         lowerLabel = new JLabel(lowerText, lowerIcon, SwingConstants.LEFT);
-        lowerLabel.setFont(new Font(Constants.FIRST_FONT.getName(), Font.BOLD, 35));
+        lowerLabel.setFont(Constants.FIRST_FONT.deriveFont(Font.BOLD, 35));
         lowerLabel.setBackground(Constants.BACKGROUND_COLOR);
         lowerLabel.setIconTextGap(20);
         lowerLabel.setOpaque(true);

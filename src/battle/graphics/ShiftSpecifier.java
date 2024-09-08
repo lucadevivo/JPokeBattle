@@ -46,8 +46,7 @@ public class ShiftSpecifier extends JTextPane {
 	    
 	    
 	    // Set the font for the JTextPane
-        Font font = new Font(Constants.FIRST_FONT.getName(), Font.BOLD, 35);
-        setFont(font);
+	    setFont(Constants.FIRST_FONT.deriveFont(Font.BOLD, 35));
      
         // Set the JTextPane properties
         setEditable(false);

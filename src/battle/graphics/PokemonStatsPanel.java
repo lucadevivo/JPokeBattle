@@ -43,14 +43,14 @@ public class PokemonStatsPanel extends JPanel {
 
         nameField = new JTextField("Name");
         nameField.setText(pokemon.getName().toUpperCase());
-        nameField.setFont(new Font(Constants.FIRST_FONT.getName(), Font.PLAIN, 70));
+        nameField.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 70));
         nameField.setBackground(Constants.BACKGROUND_COLOR);
         nameField.setBorder(new EmptyBorder(0, 0, 0, 0));
         nameField.setEditable(false);
 
         levelField = new JTextField("Level");
         levelField.setText(":L" + pokemon.getLevel());
-        levelField.setFont(new Font(Constants.SECOND_FONT.getName(), Font.BOLD, 30));
+        levelField.setFont(Constants.SECOND_FONT.deriveFont(Font.BOLD, 30));
         levelField.setBackground(Constants.BACKGROUND_COLOR);
         levelField.setBorder(new EmptyBorder(0, 0, 0, 0));
         levelField.setEditable(false);
