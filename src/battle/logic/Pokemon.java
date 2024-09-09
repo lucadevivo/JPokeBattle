@@ -87,15 +87,16 @@ public class Pokemon {
      * @param evSpecial Effort value for special.
      */
 	
-    public Pokemon(String name, Type type, int hp, int atk, int def, int vel, int Special, int baseXp,
+    public Pokemon(String name, Type type, int hp, int maxHp, int atk, int def, int vel, int Special, int baseXp,
                    String[] initialMoves, List<Evolution> evolutions, TypeEV typeEv,
                    int ivHp, int ivAtk, int ivDef, int ivVel, int ivSpecial,
                    int evHp, int evAtk, int evDef, int evVel, int evSpecial) {
         
         this.name = name;
         this.type = type;
-        this.maxHp = hp;
-        this.hp = this.maxHpCurrent = generateHp(hp, ivHp, evHp);
+        this.maxHp = maxHp;
+        this.hp = hp;
+        this.maxHpCurrent = generateHp(maxHp, ivHp, evHp);
         this.def = def;
         this.defCurrent = generateStat(def, ivDef, evDef);
         this.atk = atk;
@@ -602,6 +603,7 @@ public class Pokemon {
           .append(level).append("\n")
           .append(exp).append("\n")
           .append(hp).append("\n")
+          .append(maxHp).append("\n")         
           .append(atk).append("\n")
           .append(def).append("\n")
           .append(vel).append("\n")
