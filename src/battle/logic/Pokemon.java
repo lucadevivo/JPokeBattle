@@ -1,5 +1,6 @@
 package battle.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,12 @@ import java.util.Random;
 /**
  * This class represents a Pokémon with its attributes and methods for battle mechanics.
  */
-public class Pokemon {
+public class Pokemon implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	// Constants for maximum numbers
 	private static final int MAX_NUM_MOVES = 4;
@@ -60,70 +66,6 @@ public class Pokemon {
 	
 	// EV type for this Pokémon
 	private TypeEV typeEv;
-	
-	/**
-     * Constructor for a Pokémon with additional attributes.
-     * 
-     * @param name The name of the Pokémon.
-     * @param type The type of the Pokémon.
-     * @param hp The base HP of the Pokémon.
-     * @param atk The base attack of the Pokémon.
-     * @param def The base defense of the Pokémon.
-     * @param vel The base speed of the Pokémon.
-     * @param Special The base special of the Pokémon.
-     * @param baseXp The base experience of the Pokémon.
-     * @param initialMoves The initial moves of the Pokémon.
-     * @param evolutions The possible evolutions of the Pokémon.
-     * @param typeEv The EV type the Pokémon grants.
-     * @param ivHp Individual value for HP.
-     * @param ivAtk Individual value for attack.
-     * @param ivDef Individual value for defense.
-     * @param ivVel Individual value for speed.
-     * @param ivSpecial Individual value for special.
-     * @param evHp Effort value for HP.
-     * @param evAtk Effort value for attack.
-     * @param evDef Effort value for defense.
-     * @param evVel Effort value for speed.
-     * @param evSpecial Effort value for special.
-     */
-	
-    public Pokemon(String name, Type type, int hp, int maxHp, int atk, int def, int vel, int Special, int baseXp,
-                   String[] initialMoves, List<Evolution> evolutions, TypeEV typeEv,
-                   int ivHp, int ivAtk, int ivDef, int ivVel, int ivSpecial,
-                   int evHp, int evAtk, int evDef, int evVel, int evSpecial) {
-        
-        this.name = name;
-        this.type = type;
-        this.maxHp = maxHp;
-        this.hp = hp;
-        this.maxHpCurrent = generateHp(maxHp, ivHp, evHp);
-        this.def = def;
-        this.defCurrent = generateStat(def, ivDef, evDef);
-        this.atk = atk;
-        this.atkCurrent = generateStat(atk, ivAtk, evAtk);
-        this.vel = vel;
-        this.velCurrent = generateStat(vel, ivVel, evVel);
-        this.Special = Special;
-        this.SpecialCurrent = generateStat(Special, ivSpecial, evSpecial);
-        this.baseXp = baseXp;
-        this.moves = new ArrayList<>();
-        for (String move : initialMoves) { this.moves.add(move); }
-        this.unlockableMoves = new HashMap<>();
-        this.evolutions = evolutions;
-        this.typeEv = typeEv;
-
-        // Set individual and effort values
-        this.ivHp = ivHp;
-        this.ivAtk = ivAtk;
-        this.ivDef = ivDef;
-        this.ivVel = ivVel;
-        this.ivSpecial = ivSpecial;
-        this.evHp = evHp;
-        this.evAtk = evAtk;
-        this.evDef = evDef;
-        this.evVel = evVel;
-        this.evSpecial = evSpecial;
-    }
 	
 	/**
      * Constructor for a Pokémon.
@@ -391,15 +333,16 @@ public class Pokemon {
             }
         }
 	}	
-	///////////////////////Defense Getters and Setters and Current Defense///////////////////////////
 	
-	public int getDef() {
-		return def;
+	public void resetStats() {
+		
+		updateStats();
+		
+		if (hp <= 0) {
+			hp = generateHp(maxHp, ivHp, evHp);
+		}
 	}
-	
-	public void setDef(int newDef) {
-		def = newDef;
-	}
+	///////////////////////Current defense Getter and Setter///////////////////////////
 	
 	public int getDefCurrent() {
 		return defCurrent;
@@ -408,21 +351,8 @@ public class Pokemon {
 		defCurrent = newDefAttuale;
 	}
 	
-	///////////////////////Attack getter and setter and current attack///////////////////////////
-	
-	public int getAtk() {
-		return atk;
-	}
-	
-	public void setAtk(int newAtk) {
+	///////////////////////Current attack getter and setter///////////////////////////
 		
-		if (newAtk == 1) {
-	        atk = 2;
-	    } else {
-	        atk = newAtk;
-	    }
-	}
-	
 	public int getAtkCurrent() {
 		return atkCurrent;
 	}
@@ -436,21 +366,8 @@ public class Pokemon {
 	    }
 	}
 	
-	///////////////////////Getter and Setter of Special and Current Special///////////////////////////
-	
-	public int getSpecial() {
-        return Special;
-    }
-	
-	public void setSpecial(int newSpecial) {
+	///////////////////////Current special getter and setter///////////////////////////
 		
-		if (newSpecial <= 1) {
-	        Special = 2;
-	    } else {
-	    	Special = newSpecial;
-	    }
-	}
-	
 	public int getSpecialCurrent() {
         return SpecialCurrent;
     }
@@ -464,16 +381,8 @@ public class Pokemon {
 	    }
 	}
 	
-	///////////////////////Getter and Setter of speed and current speed///////////////////////////
-	
-	public int getVel() {
-		return vel;
-	}
-	
-	public void setVel(int newVelocita) {
-		vel = newVelocita;
-	}
-	
+	///////////////////////Current speed getter and setter///////////////////////////
+		
 	public int getVelCurrent() {
 		return velCurrent;
 	}
@@ -482,16 +391,8 @@ public class Pokemon {
 		velCurrent = newVelocitaAttuale;
 	}
 	
-	///////////////////////Getter and Setter of maxHp and current maxHp///////////////////////////
-	
-	public int getHpMax() {
-	    return maxHp;
-	}
-	
-	public void setHpMax(int newMaxHp) {
-		maxHp = newMaxHp;
-	}
-	
+	///////////////////////Current maxHp getter and setter///////////////////////////
+		
 	public int getHpMaxCurrent() {
 	    return maxHpCurrent;
 	}
@@ -588,42 +489,4 @@ public class Pokemon {
 	            ", evSpecial=" + evSpecial +
 	            '}';
 	}
-	
-	/**
-     * Returns a string with all the Pokémon's attributes, each on a new line.
-     * 
-     * @return A string representing all the Pokémon's attributes.
-     */
-    public String getAllAttributes() {
-    	
-        StringBuilder sb = new StringBuilder();
-        
-        sb.append(name).append("\n")
-          .append(type).append("\n")
-          .append(level).append("\n")
-          .append(exp).append("\n")
-          .append(hp).append("\n")
-          .append(maxHp).append("\n")         
-          .append(atk).append("\n")
-          .append(def).append("\n")
-          .append(vel).append("\n")
-          .append(Special).append("\n")
-          .append(baseXp).append("\n")
-          .append(ivHp).append("\n")
-          .append(ivAtk).append("\n")
-          .append(ivDef).append("\n")
-          .append(ivVel).append("\n")
-          .append(ivSpecial).append("\n")
-          .append(evHp).append("\n")
-          .append(evAtk).append("\n")
-          .append(evDef).append("\n")
-          .append(evVel).append("\n")
-          .append(evSpecial).append("\n")
-          .append(moves).append("\n")
-          .append(unlockableMoves).append("\n")
-          .append(evolutions).append("\n")
-          .append(typeEv).append("\n");
-
-        return sb.toString();
-    }
 }

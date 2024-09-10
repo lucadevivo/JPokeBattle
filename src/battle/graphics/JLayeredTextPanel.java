@@ -134,7 +134,7 @@ public class JLayeredTextPanel extends JLayeredPane {
 
         
         // Create a Timer to switch to the appropriate panel after 3 second
-        Timer timer = new Timer(500, new ActionListener() {
+        Timer timer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	

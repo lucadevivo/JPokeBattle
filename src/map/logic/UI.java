@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
@@ -16,7 +17,7 @@ public class UI {
 	Graphics2D g2;
 	
 	private BufferedImage image1;
-	private BufferedImage image2;
+	private BufferedImage image2	;
 	
 	public boolean messageOn = false;
 	public String message = "";
@@ -29,11 +30,25 @@ public class UI {
 	public String currentDialogue = "";
 	public static final Color BACKGROUND_COLOR = Color.WHITE;
 	
+	// Array per memorizzare lo stato di vuoto dei profili
+    private boolean[] profilesEmpty = new boolean[3];
+	
 	public UI(GamePanel gp) {	
 		
 		this.gp = gp;
 		loadImage();
+		checkProfiles();
 	}
+	
+	// Metodo per controllare se i file dei profili esistono
+    private void checkProfiles() {
+        
+		for (int i = 0; i < profilesEmpty.length; i++) {
+            File file = new File("res/profiles/profile_" + i + ".ser"); // Supponendo che i file dei profili siano profile1.txt, profile2.txt, ecc.
+            profilesEmpty[i] = !file.exists(); // Imposta true se il file non esiste
+        }
+    }
+    
 	private void loadImage() {
 		
 	    Random random = new Random();
@@ -223,65 +238,53 @@ public class UI {
         }
     }
 	public void drawProfileScreen() {
-	    // Imposta lo sfondo bianco
-	    g2.setColor(Color.WHITE);
-	    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		
+        // Imposta lo sfondo bianco
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-	    // Imposta il colore del testo a nero
-	    g2.setColor(Color.BLACK);
-	    g2.setFont(Constants.SECOND_FONT.deriveFont(Font.BOLD, 36F));
-	    String text = "Seleziona Profilo";
-	    int x = getXForCenteredText(text);
-	    int y = gp.tileSize * 4;
+        // Imposta il colore del testo a nero
+        g2.setColor(Color.BLACK);
+        g2.setFont(Constants.SECOND_FONT.deriveFont(Font.BOLD, 36F));
+        String text = "Seleziona Profilo";
+        int x = getXForCenteredText(text);
+        int y = gp.tileSize * 4;
 
-	    g2.drawString(text, x, y);
+        g2.drawString(text, x, y);
 
-	    // Disegna "Profilo 1" e la freccia se selezionato
-	    text = "Profilo 1";
-	    x = getXForCenteredText(text);
-	    y += gp.tileSize;
-	    g2.drawString(text, x, y);
-	    if (profileChoice == 0) {
-	        g2.drawString(">", x - gp.tileSize, y);
-	    }
+        // Disegna i profili con il controllo per "(empty)"
+        for (int i = 0; i < 3; i++) {
+            text = "Profilo " + (i + 1);
+            if (profilesEmpty[i]) {
+                text += " (empty)"; // Aggiungi (empty) se il profilo è vuoto
+            }
+            x = getXForCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (profileChoice == i) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+        }
 
-	    // Disegna "Profilo 2" e la freccia se selezionato
-	    text = "Profilo 2";
-	    x = getXForCenteredText(text);
-	    y += gp.tileSize;
-	    g2.drawString(text, x, y);
-	    if (profileChoice == 1) {
-	        g2.drawString(">", x - gp.tileSize, y);
-	    }
+        // Disegna "indietro" e la freccia se selezionato
+        text = "indietro";
+        x = getXForCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (profileChoice == 3) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
 
-	    // Disegna "Profilo 3" e la freccia se selezionato
-	    text = "Profilo 3";
-	    x = getXForCenteredText(text);
-	    y += gp.tileSize;
-	    g2.drawString(text, x, y);
-	    if (profileChoice == 2) {
-	        g2.drawString(">", x - gp.tileSize, y);
-	    }
+        // Disegna le immagini
+        int img1X = 50;
+        int img1Y = gp.screenHeight - image1.getHeight() - 50;
 
-	    // Disegna "indietro" e la freccia se selezionato
-	    text = "indietro";
-	    x = getXForCenteredText(text);
-	    y += gp.tileSize;
-	    g2.drawString(text, x, y);
-	    if (profileChoice == 3) {
-	        g2.drawString(">", x - gp.tileSize, y);
-	    }
+        int img2X = gp.screenWidth - image2.getWidth() - 50;
+        int img2Y = gp.screenHeight - image2.getHeight() - 50;
 
-	    // Disegna le immagini
-	    int img1X = 50;
-	    int img1Y = gp.screenHeight - image1.getHeight() - 50;
-
-	    int img2X = gp.screenWidth - image2.getWidth() - 50;
-	    int img2Y = gp.screenHeight - image2.getHeight() - 50;
-
-	    g2.drawImage(image1, img1X, img1Y, null);
-	    g2.drawImage(image2, img2X, img2Y, null);
-	}
+        g2.drawImage(image1, img1X, img1Y, null);
+        g2.drawImage(image2, img2X, img2Y, null);
+    }
 
 
 	public void drawSubWindow(int x,int y,int width,int height) {

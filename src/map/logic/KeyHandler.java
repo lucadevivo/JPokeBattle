@@ -171,9 +171,10 @@ public class KeyHandler implements KeyListener{
                 if (selectedOption == 3) {
                     gp.gameState = gp.titleState;
                 } else {
-                    // ProfiloUtente profiloSelezionato = profili.get(selectedOption);
+                	
+                	gp.chosenProfile = selectedOption;
                     gp.gameState = gp.playState;
-                    // Esegui altre azioni necessarie con il profilo selezionato
+
                 }
             }
         }

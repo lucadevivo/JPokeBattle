@@ -5,6 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import javax.swing.JPanel;
 import battle.graphics.BattlePanel;
 import battle.logic.Battle;
@@ -70,6 +75,8 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver{
 	
 	public boolean winner = false;
 	private int currentMusic = -1;
+	
+	public int chosenProfile = 0;
 	
 	public GamePanel() {
 		
@@ -214,14 +221,45 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver{
 	}
 	public void startBattle() {
 		
-		Trainer primoAllenatore = new Trainer(new Pokemon[]{new Squirtle() /*, new Bulbasaur(), new Charmander()*/}, "Red");
-		Trainer secondoAllenatore = new Trainer(new Pokemon[]{new Bulbasaur()/*, new Charmander(), new Squirtle()*/}, "Blue");
-        Battle scontro = new Battle(primoAllenatore, secondoAllenatore);
-        GameLogic gameLogic = new GameLogic(primoAllenatore, secondoAllenatore, scontro, null, null);
+		Trainer firstTrainer = null;
+	    Trainer secondTrainer = null;
+	    
+	    File file = new File("res/profiles/profile_" + chosenProfile + ".ser");
+	    
+	    if (file.exists()) {
+	    	
+	    	// If the file exists, deserialize the trainer
+	        try (FileInputStream fileIn = new FileInputStream(file);
+	             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+	            
+	        	firstTrainer = (Trainer) in.readObject();
+	        	secondTrainer = (Trainer) in.readObject();
+	            
+	        } catch (IOException | ClassNotFoundException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        //Cycle on every Pokémon of both trainers and reset the current stats
+	        for (Pokemon pokemon : firstTrainer.getTeam()) {
+	            pokemon.resetStats();
+	        }
+	        for (Pokemon pokemon : secondTrainer.getTeam()) {
+	            pokemon.resetStats();
+	        }
+	        
+	    } else {
+	    	
+	    	// If the file does not exist, create new trainers
+	    	firstTrainer = new Trainer(new Pokemon[] { new Squirtle(),  new Bulbasaur(), new Charmander()}, "Red");
+	    	secondTrainer = new Trainer(new Pokemon[] { new Bulbasaur(), new Charmander(), new Squirtle()}, "Blue");
+	    }
+	    
+        Battle battle = new Battle(firstTrainer, secondTrainer, chosenProfile);
+        GameLogic gameLogic = new GameLogic(firstTrainer, secondTrainer, battle, null, null);
         
         gameLogic.setBattleObserver(this);
 		
-        BattlePanel battlePanel = new BattlePanel(primoAllenatore, secondoAllenatore, 0, gameLogic);
+        BattlePanel battlePanel = new BattlePanel(firstTrainer, secondTrainer, 0, gameLogic);
         battlePanel.setPreferredSize(new Dimension(screenWidth, screenHeight));
         battlePanel.setBackground(Color.LIGHT_GRAY);
         

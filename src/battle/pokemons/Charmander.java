@@ -1,5 +1,6 @@
 package battle.pokemons;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import battle.logic.Evolution;
@@ -7,7 +8,12 @@ import battle.logic.Pokemon;
 import battle.logic.Type;
 import battle.logic.TypeEV;
 
-public class Charmander extends Pokemon{
+public class Charmander extends Pokemon implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Charmander() {
 		

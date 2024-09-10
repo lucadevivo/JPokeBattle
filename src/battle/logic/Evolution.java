@@ -1,10 +1,18 @@
 package battle.logic;
+
+import java.io.Serializable;
+
 /**
  * Represents the evolution details of a Pokemon, including its name and the level at which it evolves.
  */
-public class Evolution {
+public class Evolution implements Serializable{
 	
-    private String name;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String name;
     private int evolutionLevel;
 
     /**

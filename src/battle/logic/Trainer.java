@@ -1,11 +1,19 @@
 package battle.logic;
 
+import java.io.Serializable;
+
 /**
  * The Trainer class represents a Pokémon trainer with a team of Pokémon, a name, and a trainer level.
  */
-public class Trainer {
+public class Trainer implements Serializable {
 
-    private Pokemon[] team;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	private Pokemon[] team;
     private int trainerLevel;
     private String name;
 
@@ -91,19 +99,5 @@ public class Trainer {
         }
         return name + " Level: " + trainerLevel + " Wins: " + wins + " Losses: " + losses + " Team: " + teamList;
     }
-    
-    public String getAllAttributes() {
-    	
-        StringBuilder attributes = new StringBuilder();
-        
-        attributes.append(name).append("\n")
-        .append(trainerLevel).append("\n")
-        .append(wins).append("\n")
-        .append(losses).append("\n");
-
-
-        return attributes.toString();
-    }
-
 }
 

@@ -1,8 +1,8 @@
 package battle.logic;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * The Battle class represents a Pokémon battle between two trainers.
@@ -11,16 +11,18 @@ public class Battle {
 
 	private Trainer firstTrainer;
 	private Trainer secondTrainer;
+	private int chosenProfile;
 	
 	/**
      * Constructs a Battle with the specified trainers.
      * @param firstTrainer The first trainer.
      * @param secondTrainer The second trainer.
      */
-	public Battle(Trainer firstTrainer, Trainer secondTrainer) {
+	public Battle(Trainer firstTrainer, Trainer secondTrainer, int chosenPofile) {
 		
 		this.firstTrainer = firstTrainer;
 		this.secondTrainer = secondTrainer;
+		this.chosenProfile = chosenPofile;
 		
 	}
 	
@@ -64,25 +66,21 @@ public class Battle {
 	// Method to save stats to a file
     public void saveStats() {
     	
-    	try (BufferedWriter writer = new BufferedWriter(new FileWriter("res/profiles/battle_one.txt"))) {
-
-            writer.write(firstTrainer.getAllAttributes());
-            writePokemonStats(writer, firstTrainer.getTeam());
-
-            writer.write(secondTrainer.getAllAttributes());
-            writePokemonStats(writer, secondTrainer.getTeam());
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	try (FileOutputStream fileOut = new FileOutputStream("res/profiles/profile_" + chosenProfile + ".ser");
+    	         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+    	        
+    	        // Serializza il primo allenatore
+    	        out.writeObject(firstTrainer);
+    	        
+    	        // Serializza il secondo allenatore
+    	        out.writeObject(secondTrainer);
+    	        
+    	    } catch (IOException e) {
+    	        e.printStackTrace();
+    	    }
+    	
     }
 
-    // Helper method to write Pokémon stats
-    private void writePokemonStats(BufferedWriter writer, Pokemon[] team) throws IOException {
-        for (Pokemon pokemon : team) {
-            writer.write(pokemon.getAllAttributes());
-        }
-    }
 }
+
 
