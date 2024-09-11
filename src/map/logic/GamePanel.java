@@ -24,202 +24,172 @@ import map.entity.Entity;
 import map.entity.Player;
 import map.tile.TileManager;
 
-public class GamePanel extends JPanel implements Runnable, BattleObserver{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	//SCREEN SETTINGS
-	final int originalTileSize = 32; // 32*32 tile
-	final int scale = 2;
-	
-	public final int tileSize = originalTileSize * scale; // 64*64 tile
-	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;
-	public final int screenWidth = tileSize * maxScreenCol; // 1024 pixels
-	public final int screenHeight = tileSize * maxScreenRow; // 768 pixels
-	
-	// WORLD SETTINGS
-	public final int maxWorldRow = 11;
-	public final int maxWorldCol = 11;
-	
-	//Frame per second:
-	int FPS	= 60;
-	
-	TileManager tileM = new TileManager(this);
-	KeyHandler keyH = new KeyHandler(this);
-	Sound sfxDoor = new Sound();
-	Sound sfx = new Sound();
-	Sound music = new Sound();
-	public CollisionChecker cChecker = new CollisionChecker(this);
-	public AssetSetter aSetter = new AssetSetter(this);
-	public UI ui = new UI(this);
-	public Entity interactingNpc = null; // Add this line
-	Thread gameThread;
-	
-	// ENTITY 
-	public Player player = new Player(this,keyH);
-	public Entity npc[] = new Entity[10];
-	
-	//GAME STATE
-	public int gameState;
-	public final int titleState = 0;
-	public final int playState = 1;
-	public final int dialogueState = 2;
-	public final int optionState = 3;
-	public final int battleState = 4;
-	public final int endState = 5;
-	public final int profileState = 6;
-	
-	
-	public boolean winner = false;
-	private int currentMusic = -1;
-	
-	public int chosenProfile = 0;
-	
-	public GamePanel() {
-		
-		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.setBackground(Color.black);
-		this.setLayout(new BorderLayout());
-		this.setDoubleBuffered(true);
-		this.addKeyListener(keyH);
-		this.setFocusable(true);
-		
-		MusicThread musicThread = new MusicThread();
-		musicThread.start();
-	}
-	public void setupGame() {
-		
-		aSetter.setNPC();
-		gameState = titleState;
-	}
-	public void startGameThread() {
-		
-		gameThread = new Thread(this);
-		gameThread.start();
-	}
-	@Override
-	public void run() {
-		
-		double drawInterval= 1000000000/FPS; //0.0166666... seconds
-		double delta = 0;
-		long lastTime = System.nanoTime();
-		long currentTime;
-		long timer = 0;
-		int drawCount = 0;
-		
-		while(gameThread != null) {
-			
-			currentTime = System.nanoTime();
-			delta += (currentTime - lastTime) / drawInterval;
-			timer += (currentTime - lastTime);
-			lastTime = currentTime;
-			
-			if(delta>=1) {
-				
-				// 1. UPDATE: update information such as character positions
-				update();
-				// 2. DRAW: draw the screen with the updated information
-				repaint();
-				delta--;
-				drawCount++;
-			}
-			if(timer>=1000000000) {
-				System.out.println("FPS: "+drawCount);
-				drawCount = 0;
-				timer = 0;
-			}
-		}
-	}
-	public void update() {		
-		player.update();
-		
-	}
-	public void paintComponent(Graphics g) {
-		
-		
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		
-		//DEBUG
-		long drawStart = 0;
-		if(keyH.checkDrawTime == true) {
-			
-			drawStart = System.nanoTime();
-		}
-		// TITLE SCREEN
-		if(gameState == titleState) {
-			
-			ui.draw(g2);
-		}
-		// PLAY SCREEN
-		else if (gameState == playState){
-			
-			// TILE
-			tileM.draw(g2);
-			
-			//NPC
-			for(int i = 0; i < npc.length; i++) {
-				
-				if(npc[i] != null) {
-					
-					npc[i].draw(g2);
-				}
-			}
-			// PLAYER
-			player.draw(g2);
-		}
-		// DIALOGUE SCREEN
-		else if (gameState == dialogueState) {
-			
-			// TILE
-			tileM.draw(g2);
-			
-			//NPC
-			for(int i = 0; i < npc.length; i++) {
-				
-				if(npc[i] != null) {
-					
-					npc[i].draw(g2);
-				}
-			}
-			// PLAYER
-			player.draw(g2);
-			
-			//UI
-			ui.draw(g2);			
-		}
-		// BATTLE SCREEN
-		else if (gameState == battleState){
-						
-			gameThread = null;
-			startBattle();
-		}
-		// END SCREEN
-		else if (gameState == endState) {
-			
-	        ui.draw(g2);
-		}
-		// PROFILE SCREEN
-		else if (gameState == profileState) {
-			
-			ui.draw(g2);
-		}
-		else {System.out.println(gameState);}
-		
-		if(keyH.checkDrawTime == true) {
-			
-			long drawEnd = System.nanoTime();
-			long passed = drawEnd - drawStart;
-			g2.setColor(Color.white);
-			g2.drawString("Draw time: "+passed, 10, 400);
-			System.out.println("Draw Time: "+passed);
-		}
-		g2.dispose();
-	}
-	public void startBattle() {
+public class GamePanel extends JPanel implements Runnable, BattleObserver {
+
+    private static final long serialVersionUID = 1L;
+
+    // SCREEN SETTINGS
+    final int originalTileSize = 32; // Base tile size 32x32
+    final int scale = 2; // Scale factor for tile size
+    public final int tileSize = originalTileSize * scale; // Final tile size 64x64
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = tileSize * maxScreenCol; // Screen width: 1024 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // Screen height: 768 pixels
+
+    // WORLD SETTINGS
+    public final int maxWorldRow = 11;
+    public final int maxWorldCol = 11;
+
+    // Frame per second setting
+    int FPS = 60;
+
+    // Game components and managers
+    TileManager tileM = new TileManager(this);
+    KeyHandler keyH = new KeyHandler(this);
+    Sound sfxDoor = new Sound();
+    Sound sfx = new Sound();
+    Sound music = new Sound();
+    public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    public Entity interactingNpc = null;
+    Thread gameThread;
+
+    // ENTITY
+    public Player player = new Player(this, keyH);
+    public Entity npc[] = new Entity[10];
+
+    // GAME STATE CONSTANTS
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int dialogueState = 2;
+    public final int optionState = 3;
+    public final int battleState = 4;
+    public final int endState = 5;
+    public final int profileState = 6;
+
+    public boolean winner = false;
+    private int currentMusic = -1;
+    public int chosenProfile = 0;
+
+    // Constructor to set up the game panel
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.black);
+        this.setLayout(new BorderLayout());
+        this.setDoubleBuffered(true);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+
+        // Start music in a separate thread
+        MusicThread musicThread = new MusicThread();
+        musicThread.start();
+    }
+
+    // Sets up the game by initializing NPCs and setting the initial game state
+    public void setupGame() {
+        aSetter.setNPC();
+        gameState = titleState;
+    }
+
+    // Starts the game thread, which handles the game loop
+    public void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public void run() {
+        double drawInterval = 1000000000 / FPS; // Time per frame in nanoseconds
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long timer = 0;
+        int drawCount = 0;
+
+        // Game loop
+        while (gameThread != null) {
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
+
+            if (delta >= 1) {
+                update(); // Update game logic
+                repaint(); // Redraw the screen
+                delta--;
+                drawCount++;
+            }
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+                timer = 0;
+            }
+        }
+    }
+
+    // Update the game state, mainly updating the player position
+    public void update() {
+        player.update();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+
+        // Optional debug feature to check draw time
+        long drawStart = 0;
+        if (keyH.checkDrawTime) {
+            drawStart = System.nanoTime();
+        }
+
+        // Render different screens based on the current game state
+        switch (gameState) {
+            case titleState -> ui.draw(g2); // TITLE SCREEN
+            case playState -> { // PLAY SCREEN
+                tileM.draw(g2); // Draw tiles
+                for (Entity npcEntity : npc) { // Draw NPCs
+                    if (npcEntity != null) {
+                        npcEntity.draw(g2);
+                    }
+                }
+                player.draw(g2); // Draw player
+            }
+            case dialogueState -> { // DIALOGUE SCREEN
+                tileM.draw(g2);
+                for (Entity npcEntity : npc) {
+                    if (npcEntity != null) {
+                        npcEntity.draw(g2);
+                    }
+                }
+                player.draw(g2);
+                ui.draw(g2); // Draw UI
+            }
+            case battleState -> { // BATTLE SCREEN
+                gameThread = null; // Stop the game thread during battle
+                startBattle();
+            }
+            case endState, profileState -> ui.draw(g2); // END and PROFILE SCREENS
+            default -> System.out.println(gameState);
+        }
+
+        // Display draw time if debugging
+        if (keyH.checkDrawTime) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.white);
+            g2.drawString("Draw time: " + passed, 10, 400);
+            System.out.println("Draw Time: " + passed);
+        }
+
+        g2.dispose();
+    }
+
+    // Initiates a battle sequence between two trainers
+public void startBattle() {
 		
 		Trainer firstTrainer = null;
 	    Trainer secondTrainer = null;
@@ -259,7 +229,7 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver{
         
         gameLogic.setBattleObserver(this);
 		
-        BattlePanel battlePanel = new BattlePanel(firstTrainer, secondTrainer, 0, gameLogic);
+        BattlePanel battlePanel = new BattlePanel(firstTrainer, secondTrainer, 0, gameLogic, chosenProfile);
         battlePanel.setPreferredSize(new Dimension(screenWidth, screenHeight));
         battlePanel.setBackground(Color.LIGHT_GRAY);
         
@@ -269,94 +239,72 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver{
         add(battlePanel, BorderLayout.CENTER); // Add battlePanel to the center
         revalidate(); // Trigger layout update
 	}
+    // Handles the end of a battle, determining the winner and setting the end game state
+    @Override
+    public void onBattleEnd(int i) {
+        if (i == 1 || i == 2) {
+            winner = (i == 1);
+            gameState = endState;
 
-	@Override
-	public void onBattleEnd(int i) {
-		
-	    if (i == 1 || i == 2) {
-	    	
-	        winner = (i == 1);
-	        gameState = endState;
+            removeAll();
+            revalidate();
+            repaint();
 
-	        removeAll();
-	        revalidate();
-	        repaint();
-	        
-	        startGameThread();
-	    }
-	}
-	public void playMusic(int i) {
-		
-	    if (i != currentMusic) {
-	    	
-	        music.stop();
-	        music.setFile(i);
-	        music.play();
-	        music.loop();
-	        currentMusic = i;
-	    }
-	}
-	public void playNonLoppedMusic(int i) {
-		
-	    if (i != currentMusic) {
-	    	
-	        music.stop();
-	        music.setFile(i);
-	        music.play();
-	        currentMusic = i;
-	    }
-	}
-	class MusicThread extends Thread {
-		
-	    @Override
-	    public void run() {
-	    	
-	        while (true) {
-	        	
-	            int newMusic = -1;
-	            
-	            switch (gameState) {
-	            
-	                case titleState:
-	                case profileState:
-	                	newMusic = 0;
-	                    break;
-	                case playState:
-	                case dialogueState:
-	                	
-	                    newMusic = 1;
-	                    break;
-	                    
-	                case battleState:
-	                	
-	                    newMusic = 2;
-	                    break;
-	                    
-	                case endState:
-	                	
-	                    if (winner) {
-	                        newMusic = 3;
-	                    } else {
-	                        newMusic = 4;
-	                    }
-	                    break;
-	                    
-	                default:
-	                    break;
-	            }
-	            
-	            if ((gameState == endState || gameState == titleState) && newMusic != currentMusic) {
-	                playNonLoppedMusic(newMusic);
-	            } else if (newMusic != currentMusic) {
-	                playMusic(newMusic);
-	            }
-	            
-	            try {
-	                Thread.sleep(500); // Controlla lo stato ogni secondo
-	            } catch (InterruptedException e) {
-	                break; // Interrompe il ciclo se il thread viene interrotto
-	            }
-	        }
-	    }
-	}
+            startGameThread(); // Restart the game thread after the battle
+        }
+    }
+
+    // Plays background music based on the current game state
+    public void playMusic(int i) {
+        if (i != currentMusic) {
+            music.stop();
+            music.setFile(i);
+            music.play();
+            music.loop();
+            currentMusic = i;
+        }
+    }
+
+    // Plays non-looped background music
+    public void playNonLoppedMusic(int i) {
+        if (i != currentMusic) {
+            music.stop();
+            music.setFile(i);
+            music.play();
+            currentMusic = i;
+        }
+    }
+
+    // A thread dedicated to managing background music based on the game's state
+    class MusicThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                int newMusic = -1;
+
+                // Determine which music track to play based on the current game state
+                switch (gameState) {
+                    case titleState, profileState -> newMusic = 0;
+                    case playState, dialogueState -> newMusic = 1;
+                    case battleState -> newMusic = 2;
+                    case endState -> newMusic = winner ? 3 : 4;
+                    default -> {}
+                }
+
+                // Play the selected music track
+                if ((gameState == endState || gameState == titleState) && newMusic != currentMusic) {
+                    playNonLoppedMusic(newMusic);
+                } else if (newMusic != currentMusic) {
+                    playMusic(newMusic);
+                }
+
+                // Sleep to periodically check for state changes
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        }
+    }
 }

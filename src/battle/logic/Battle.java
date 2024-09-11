@@ -52,9 +52,11 @@ public class Battle {
 	public int endOfBattle() {
 		
 		if (!firstTrainer.pokemonAvailable()) {
+			secondTrainer.incrementWins();
 			saveStats();
 	        return 2;	// Second trainer wins
 	    } else if (!secondTrainer.pokemonAvailable()) {
+	    	firstTrainer.incrementWins();
 	    	saveStats();
 	    	return 1;	// First trainer wins
 	    } else {
@@ -82,5 +84,4 @@ public class Battle {
     }
 
 }
-
 

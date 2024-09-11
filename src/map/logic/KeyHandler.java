@@ -2,203 +2,163 @@ package map.logic;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
 
-public class KeyHandler implements KeyListener{
+// Handles keyboard input and updates game state accordingly
+public class KeyHandler implements KeyListener {
 
-	GamePanel gp;
-	public boolean upPressed, downPressed, leftPressed, rightPressed;
-	//DEBUG
-	boolean checkDrawTime = false;
-	
-	public KeyHandler(GamePanel gp) {
-		
-		this.gp = gp;
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
-	@SuppressWarnings("unused")
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-		int code = e.getKeyCode();
-			
-		// TITLE STATE
-		if(gp.gameState == gp.titleState) {
-			
-			if(code == KeyEvent.VK_W) {
-				
-				gp.ui.commandNum--;
-				if(gp.ui.commandNum < 0) gp.ui.commandNum = 0;
-			}
-			if(code == KeyEvent.VK_S) {
-				
-				gp.ui.commandNum++;
-				if(gp.ui.commandNum > 1) gp.ui.commandNum = 1;
-			}
-			if(code == KeyEvent.VK_ENTER) {
-				
-				if(gp.ui.commandNum == 0) {
-					
-					// play!
-					gp.gameState = gp.profileState;
-				}
-				if(gp.ui.commandNum == 1) {
-					
-					// close program
-					System.exit(0);
-				}
-			}
-		}
-		// PLAY STATE
-		else if(gp.gameState == gp.playState) {
-			
-			if(code == KeyEvent.VK_W) {
-				
-				upPressed=true;
-			}
-			if(code == KeyEvent.VK_S) {
-				
-				downPressed=true;
-			}
-			if(code == KeyEvent.VK_A) {
-				
-				leftPressed=true;
-			}
-			if(code == KeyEvent.VK_D) {
-				
-				rightPressed=true;
-			}
-			if(code == KeyEvent.VK_ESCAPE) {
-				
-				gp.gameState = gp.optionState;
-			}
-			//DEBUG
-			if(code == KeyEvent.VK_T) {
-				
-				if(checkDrawTime == false) {
-					
-					checkDrawTime = true;
-				}
-				else if(checkDrawTime == true) {
-					
-					checkDrawTime = false;
-				}
-			}
-		}
-		// DIALOGUE STATE
-		else if(gp.gameState == gp.dialogueState) {
-			
-			if(code == KeyEvent.VK_W) {
-				
-				gp.ui.dialogueChoice--;
-				if(gp.ui.dialogueChoice < 0) gp.ui.dialogueChoice = 0;
-			}
-			if(code == KeyEvent.VK_S) {
-				
-				gp.ui.dialogueChoice++;
-				if(gp.ui.dialogueChoice > 1) gp.ui.dialogueChoice = 1;
-			}
-			
-			if(code == KeyEvent.VK_ENTER) {
-				
-				if (gp.ui.dialogueChoice == 0) {
-					
-					gp.gameState = gp.battleState;
-				}
-				else {
-					
-					gp.gameState = gp.playState;
-				}
-			}
-		}
-		// END STATE
-		else if(gp.gameState == gp.endState) {
-			
-			if(code == KeyEvent.VK_W) {
-				
-				gp.ui.endChoice--;
-				if(gp.ui.endChoice < 0) gp.ui.endChoice = 0;
-			}
-			if(code == KeyEvent.VK_S) {
-				
-				gp.ui.endChoice++;
-				if(gp.ui.endChoice > 2) gp.ui.endChoice = 2;
-			}
-			
-			if(code == KeyEvent.VK_ENTER) {
-				
-				if (gp.ui.endChoice == 0) {
-					
-					gp.gameState = gp.battleState;
-				}
-				else if (gp.ui.endChoice == 1){
-					
-					gp.gameState = gp.playState;
-				}
-				else {
-					System.exit(0);
-				}
-			}
-		}
-		// PROFILE STATE
-		else if (gp.gameState == gp.profileState) {
+    GamePanel gp; // Reference to the main game panel
+    public boolean upPressed, downPressed, leftPressed, rightPressed; // Directional key states
+    // DEBUG
+    boolean checkDrawTime = false; // Toggle for checking draw time
 
+    // Constructor initializes the KeyHandler with a reference to the GamePanel
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
-            if (code == KeyEvent.VK_W) {
-            	
-                gp.ui.profileChoice--;
-                if (gp.ui.profileChoice < 0) {
-                	
-                    gp.ui.profileChoice = 3; // Loop alla fine
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Not used in this implementation
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
+
+        // Handle key presses based on the current game state
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            if (code == KeyEvent.VK_W) { // Move up in the menu
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) gp.ui.commandNum = 0; // Clamp to the first option
+            }
+            if (code == KeyEvent.VK_S) { // Move down in the menu
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 1) gp.ui.commandNum = 1; // Clamp to the last option
+            }
+            if (code == KeyEvent.VK_ENTER) { // Confirm selection
+                if (gp.ui.commandNum == 0) {
+                    // Start the game
+                    gp.gameState = gp.profileState;
                 }
+                if (gp.ui.commandNum == 1) {
+                    // Exit the program
+                    System.exit(0);
+                }
+            }
+        }
+        // PLAY STATE
+        else if (gp.gameState == gp.playState) {
+            // Movement keys
+            if (code == KeyEvent.VK_W) {
+                upPressed = true;
             }
             if (code == KeyEvent.VK_S) {
-            	
-                gp.ui.profileChoice++;
-                if (gp.ui.profileChoice > 3) {
-                	
-                    gp.ui.profileChoice = 3;
+                downPressed = true;
+            }
+            if (code == KeyEvent.VK_A) {
+                leftPressed = true;
+            }
+            if (code == KeyEvent.VK_D) {
+                rightPressed = true;
+            }
+            // Pause game or open options
+            if (code == KeyEvent.VK_ESCAPE) {
+                gp.gameState = gp.optionState;
+            }
+            // DEBUG: Toggle draw time display
+            if (code == KeyEvent.VK_T) {
+                checkDrawTime = !checkDrawTime;
+            }
+        }
+        // DIALOGUE STATE
+        else if (gp.gameState == gp.dialogueState) {
+            if (code == KeyEvent.VK_W) {
+                gp.ui.dialogueChoice--;
+                if (gp.ui.dialogueChoice < 0) gp.ui.dialogueChoice = 0; // Clamp to the first choice
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.dialogueChoice++;
+                if (gp.ui.dialogueChoice > 1) gp.ui.dialogueChoice = 1; // Clamp to the last choice
+            }
+            if (code == KeyEvent.VK_ENTER) { // Confirm dialogue choice
+                if (gp.ui.dialogueChoice == 0) {
+                    // Start battle
+                    gp.gameState = gp.battleState;
+                } else {
+                    // Return to play state
+                    gp.gameState = gp.playState;
                 }
             }
-            if (code == KeyEvent.VK_ENTER) {
-            	
-            	
+        }
+        // END STATE
+        else if (gp.gameState == gp.endState) {
+            if (code == KeyEvent.VK_W) { // Move up in the end menu
+                gp.ui.endChoice--;
+                if (gp.ui.endChoice < 0) gp.ui.endChoice = 0; // Clamp to the first option
+            }
+            if (code == KeyEvent.VK_S) { // Move down in the end menu
+                gp.ui.endChoice++;
+                if (gp.ui.endChoice > 2) gp.ui.endChoice = 2; // Clamp to the last option
+            }
+            if (code == KeyEvent.VK_ENTER) { // Confirm end choice
+                if (gp.ui.endChoice == 0) {
+                    // Start battle again
+                    gp.gameState = gp.battleState;
+                } else if (gp.ui.endChoice == 1) {
+                    // Return to play state
+                    gp.gameState = gp.playState;
+                } else {
+                    // Exit the program
+                    System.exit(0);
+                }
+            }
+        }
+        // PROFILE STATE
+        else if (gp.gameState == gp.profileState) {
+            if (code == KeyEvent.VK_W) { // Move up in profile selection
+                gp.ui.profileChoice--;
+                if (gp.ui.profileChoice < 0) {
+                    gp.ui.profileChoice = 0; // Clamp to the first profile
+                }
+            }
+            if (code == KeyEvent.VK_S) { // Move down in profile selection
+                gp.ui.profileChoice++;
+                if (gp.ui.profileChoice > 3) {
+                    gp.ui.profileChoice = 3; // Clamp to the last profile
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) { // Confirm profile selection
                 int selectedOption = gp.ui.profileChoice;
-                
+
                 if (selectedOption == 3) {
+                    // Return to title state
                     gp.gameState = gp.titleState;
                 } else {
-                	
-                	gp.chosenProfile = selectedOption;
+                    // Select profile and start the game
+                    gp.chosenProfile = selectedOption;
                     gp.gameState = gp.playState;
-
                 }
             }
         }
     }
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-		int code = e.getKeyCode();
-		
-		if(code == KeyEvent.VK_W) {
-			
-			upPressed=false;
-		}
-		if(code == KeyEvent.VK_S) {
-			
-			downPressed=false;
-		}
-		if(code == KeyEvent.VK_A) {
-			
-			leftPressed=false;
-		}
-		if(code == KeyEvent.VK_D) {
-			
-			rightPressed=false;
-		}
-	}
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int code = e.getKeyCode();
+
+        // Reset movement key states when keys are released
+        if (code == KeyEvent.VK_W) {
+            upPressed = false;
+        }
+        if (code == KeyEvent.VK_S) {
+            downPressed = false;
+        }
+        if (code == KeyEvent.VK_A) {
+            leftPressed = false;
+        }
+        if (code == KeyEvent.VK_D) {
+            rightPressed = false;
+        }
+    }
 }

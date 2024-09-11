@@ -2,28 +2,36 @@ package map.entity;
 
 import map.logic.GamePanel;
 
-public class NPC_Opponent extends Entity{
+public class NPC_Opponent extends Entity {
 
-	public NPC_Opponent(GamePanel gp) {
-		
-		super(gp);
-		direction = "down";
-		speed = 0;
-		
-		getImage();
-		setDialogue();
-	}
-	public void setDialogue() {
-		
-		dialogues[0] = "Guarda un po' chi si vede, haha!\nSei pronto a sfidarmi?";
-	}
-	public void getImage() {
-		
-		standingNpc = setup("/npc/npcOpponent");
-	}
-	public void speak() {
-		
-		gp.ui.currentDialogue = dialogues[dialogueIndex];
-		// dialogueIndex++; questo serve se vogliamo aggiungere altri dialoghi
-	}
+    // Constructor that initializes the NPC_Opponent with the game panel reference
+    public NPC_Opponent(GamePanel gp) {
+        super(gp);
+        // Set the initial direction and speed of the NPC
+        direction = "down";
+        speed = 0;
+
+        // Load the NPC image and set its dialogue
+        getImage();
+        setDialogue();
+    }
+
+    // Method to set dialogues for the NPC
+    public void setDialogue() {
+        // Initial dialogue when interacting with the NPC
+        dialogues[0] = "Well,  well,  look  who  we  have  here,  hehe!\nAre  you  ready  to  challenge  me?";
+    }
+
+    // Method to load the image of the NPC
+    public void getImage() {
+        // Load the standing image of the NPC
+        standingNpc = setup("/npc/npcOpponent");
+    }
+
+    // Method to handle speaking interaction with the NPC
+    public void speak() {
+        // Display the current dialogue on the game's UI
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        // dialogueIndex++; // Uncomment this line to cycle through multiple dialogues if needed
+    }
 }
