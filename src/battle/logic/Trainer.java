@@ -17,9 +17,7 @@ public class Trainer implements Serializable {
     private int trainerLevel;
     private String name;
 
-    // Nuovi attributi per il conteggio delle vittorie e delle sconfitte
     private int wins;
-    private int losses;
 
     /**
      * Constructs a Trainer with the specified team and name.
@@ -31,7 +29,6 @@ public class Trainer implements Serializable {
         this.name = name;
         this.trainerLevel = 0;    // Initialize the trainer's level to 0
         this.wins = 0;           // Initialize the wins to 0
-        this.losses = 0;         // Initialize the losses to 0
     }
 
     /**
@@ -72,19 +69,18 @@ public class Trainer implements Serializable {
     public String getName() {
         return name;
     }
+    
+    public int getWins() {
+    	return wins;
+    }
 
     /**
      * Increments the win count for this trainer.
      */
     public void incrementWins() {
-        this.wins++;
-    }
-
-    /**
-     * Increments the loss count for this trainer.
-     */
-    public void incrementLosses() {
-        this.losses++;
+    	
+    	System.out.println("PORCO DIO");
+        wins += 1;
     }
 
     /**
@@ -97,7 +93,7 @@ public class Trainer implements Serializable {
         for (Pokemon pokemon : team) {
             teamList += pokemon.toString() + " ";
         }
-        return name + " Level: " + trainerLevel + " Wins: " + wins + " Losses: " + losses + " Team: " + teamList;
+        return name + " Level: " + trainerLevel + " Wins: " + wins + " Team: " + teamList;
     }
 }
 

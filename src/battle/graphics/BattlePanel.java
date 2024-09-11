@@ -1,6 +1,9 @@
 package battle.graphics;
 
 import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import battle.logic.GameLogic;
 import battle.logic.GameObserver;
@@ -26,8 +29,12 @@ public class BattlePanel extends JPanel implements GameObserver{
 	
 	ShiftSpecifier shiftSpecifier;
 	
+	GameInfo gameInfo;
+	
 	// Keeps track of the previous trainer's turn
 	int pastTrainer = 0;
+	
+	int chosenProfile = 0;
 	
 	
 	/**
@@ -37,11 +44,19 @@ public class BattlePanel extends JPanel implements GameObserver{
      * @param wichTrainer the index of the current trainer
      * @param gameLogic the game logic instance
      */
-	public BattlePanel(Trainer firstTrainer, Trainer secondTrainer, int wichTrainer, GameLogic gameLogic){
+	public BattlePanel(Trainer firstTrainer, Trainer secondTrainer, int wichTrainer, GameLogic gameLogic, int chosenProfile){
 		
 		
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setLayout(null);
+		
+		this.chosenProfile = chosenProfile;
+		
+		gameInfo = new GameInfo(chosenProfile, firstTrainer.getName(), secondTrainer.getName(), firstTrainer.getWins(), secondTrainer.getWins());
+		gameInfo.setBounds(0, 0, (int)(Constants.PANEL_WIDTH * 0.17), (int) (Constants.PANEL_HEIGHT * 0.11));
+		
+		shiftSpecifier = new ShiftSpecifier(firstTrainer.getName(), Color.RED);
+		shiftSpecifier.setBounds(Constants.PANEL_WIDTH - 150, (int) ((Constants.PANEL_HEIGHT / 3)*2 - 30), 150, 30);
 		
 		// Initialize text panel
 		textJLayeredPanel = new JLayeredTextPanel(firstTrainer, gameLogic);	
@@ -60,18 +75,7 @@ public class BattlePanel extends JPanel implements GameObserver{
 
 		secondPokemonStats = new PokemonStatsPanel(secondTrainer.getTeam()[0]);
 		secondPokemonStats.setBounds(0, 0, (int)((Constants.PANEL_WIDTH)*0.55), (int)((Constants.PANEL_HEIGHT)*0.4));
-		
-		
-		// Initialize shift specifier
-		shiftSpecifier = new ShiftSpecifier(firstTrainer.getName(), Color.RED);
-        this.add(shiftSpecifier);
-        
-        shiftSpecifier.setSize(shiftSpecifier.getPreferredSize());
-        
-        int shiftSpecifierX = Constants.PANEL_WIDTH - shiftSpecifier.getWidth() - 50;
-        int shiftSpecifierY = (int) ((Constants.PANEL_HEIGHT / 3) * 2) - shiftSpecifier.getHeight();
-        
-        shiftSpecifier.setLocation(shiftSpecifierX, shiftSpecifierY);
+         
         
 		
         // Add components to the panel
@@ -82,6 +86,11 @@ public class BattlePanel extends JPanel implements GameObserver{
 		this.add(secondPokemonStats);
 			
 		this.add(textJLayeredPanel);
+		
+		this.add(shiftSpecifier);
+		this.add(gameInfo);
+		
+		
 		
 	}
 	
@@ -104,44 +113,31 @@ public class BattlePanel extends JPanel implements GameObserver{
      * @param wichTrainer the index of the current trainer
      */
 	public void update(Trainer firstTrainer, Trainer secondTrainer, int wichTrainer) {
-			
+		
+		
 		firstPokemonImage.updateImage(firstTrainer.getTeam()[0]);
 		firstPokemonStats.updateStats(firstTrainer.getTeam()[0]);
         
 		secondPokemonImage.updateImage(secondTrainer.getTeam()[0]);
 		secondPokemonStats.updateStats(secondTrainer.getTeam()[0]);
 		
+		gameInfo.update();
+		
 		// Update the text panel based on the current trainer
 		if (wichTrainer == 0) {
 			
+			shiftSpecifier.updateName(firstTrainer.getName(), Color.RED);
 			textJLayeredPanel.updateBox(firstTrainer); 			
 			if (wichTrainer != pastTrainer) {textJLayeredPanel.updateText(firstTrainer, secondTrainer);}
 		}
-		else {textJLayeredPanel.updateBox(secondTrainer);}
-		
-		pastTrainer = wichTrainer;
-		
-		// Update shift specifier
-		if (shiftSpecifier != null) {
-	        this.remove(shiftSpecifier);
-	    }
-	    
-	    if (wichTrainer == 0) {    
-	        shiftSpecifier = new ShiftSpecifier(firstTrainer.getName(), Color.RED);
-	    } else {
-	        shiftSpecifier = new ShiftSpecifier(secondTrainer.getName(), Color.BLUE);
-	    }
-	    
-	    this.add(shiftSpecifier);
-	    
-	    shiftSpecifier.setSize(shiftSpecifier.getPreferredSize());
-	    
-	    int shiftSpecifierX = Constants.PANEL_WIDTH - shiftSpecifier.getWidth() - 50;
-	    int shiftSpecifierY = (int) ((Constants.PANEL_HEIGHT / 3) * 2) - shiftSpecifier.getHeight();
-	    
-	    shiftSpecifier.setLocation(shiftSpecifierX, shiftSpecifierY);
+		else {
+			
+			shiftSpecifier.updateName(secondTrainer.getName(), Color.BLUE);
+			textJLayeredPanel.updateBox(secondTrainer);
 		}
-		
+			
+		pastTrainer = wichTrainer;
 	}
+}
 
 

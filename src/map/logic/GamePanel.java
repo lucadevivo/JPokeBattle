@@ -259,7 +259,7 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver{
         
         gameLogic.setBattleObserver(this);
 		
-        BattlePanel battlePanel = new BattlePanel(firstTrainer, secondTrainer, 0, gameLogic);
+        BattlePanel battlePanel = new BattlePanel(firstTrainer, secondTrainer, 0, gameLogic, chosenProfile);
         battlePanel.setPreferredSize(new Dimension(screenWidth, screenHeight));
         battlePanel.setBackground(Color.LIGHT_GRAY);
         

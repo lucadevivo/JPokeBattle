@@ -12,6 +12,7 @@ import java.awt.*;
  * PokemonStatsPanel is a custom JPanel that displays a Pokémon's stats.
  * It includes the Pokémon's name, level, and a health bar.
  */
+
 public class PokemonStatsPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,6 +37,7 @@ public class PokemonStatsPanel extends JPanel {
      * Constructs a PokemonStatsPanel with the specified Pokémon.
      * @param pokemon The Pokémon whose stats should be displayed.
      */
+    
     public PokemonStatsPanel(Pokemon pokemon) {
     	
         this.setBackground(Constants.BACKGROUND_COLOR);
