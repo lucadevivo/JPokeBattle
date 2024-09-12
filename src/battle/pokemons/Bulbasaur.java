@@ -28,7 +28,7 @@ public class Bulbasaur extends Pokemon implements Serializable{
 	            
 	        },
 		
-			// Lista di evoluzioni
+			// List of evolutions
             Arrays.asList(
             new Evolution("Ivysaur", 16),
             new Evolution("Venusaur", 32)

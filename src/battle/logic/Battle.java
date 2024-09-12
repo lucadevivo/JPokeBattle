@@ -34,6 +34,7 @@ public class Battle {
      */
 	
 	public void round(Trainer trainer, int pokemonSwitch, int move) {
+		
 		// Determine the opponent trainer
 		Trainer activeRound = (trainer == firstTrainer) ? secondTrainer : firstTrainer;
 		
@@ -41,26 +42,43 @@ public class Battle {
 		trainer.switchPokemon(pokemonSwitch);
 		
 		// Trainer's active Pokémon attacks the opponent's active Pokémon
-		trainer.getTeam()[0].attack(move, activeRound.getTeam()[0]);
-		
+		trainer.getTeam()[0].attack(move, activeRound.getTeam()[0]);		
 	}
 	
 	/**
      * Determines the outcome of the battle.
      * @return 0 if the battle is still ongoing, 1 if the first trainer wins, or 2 if the second trainer wins.
      */
+	public int checkEndOfBattle() {
+		
+		// Check if the first trainer has no available Pokémon
+		if (!firstTrainer.pokemonAvailable()) {		
+	        return 2;	// Return 2, indicating the second trainer wins	        
+	    } else if (!secondTrainer.pokemonAvailable()) {	    	  	
+	    	return 1;	// Return 1, indicating the first trainer wins	    	
+	    } else {	    	
+	        return 0; // Return 0, indicating the battle is still ongoing
+	    }		
+	}
+	
 	public int endOfBattle() {
 		
+		// Check if the first trainer has no available Pokémon
 		if (!firstTrainer.pokemonAvailable()) {
-			secondTrainer.incrementWins();
-			saveStats();
-	        return 2;	// Second trainer wins
+			
+			secondTrainer.incrementWins(); // Increment the win count for the second trainer
+			saveStats();	 // Save the current stats
+	        return 2;	// Return 2, indicating the second trainer wins
+	        
 	    } else if (!secondTrainer.pokemonAvailable()) {
-	    	firstTrainer.incrementWins();
-	    	saveStats();
-	    	return 1;	// First trainer wins
+	    	
+	    	firstTrainer.incrementWins(); // Increment the win count for the first trainer
+	    	saveStats();	 // Save the current stats	    	
+	    	return 1;	// Return 1, indicating the first trainer wins
+	    	
 	    } else {
-	        return 0;	// Battle is still ongoing
+	    	
+	        return 0; // Return 0, indicating the battle is still ongoing
 	    }
 		
 	}
@@ -71,10 +89,10 @@ public class Battle {
     	try (FileOutputStream fileOut = new FileOutputStream("res/profiles/profile_" + chosenProfile + ".ser");
     	         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
     	        
-    	        // Serializza il primo allenatore
+    			// Serialize the first trainer
     	        out.writeObject(firstTrainer);
     	        
-    	        // Serializza il secondo allenatore
+    	        // Serialize the second trainer
     	        out.writeObject(secondTrainer);
     	        
     	    } catch (IOException e) {
@@ -84,5 +102,4 @@ public class Battle {
     }
 
 }
-
 

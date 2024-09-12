@@ -1,9 +1,6 @@
 package battle.graphics;
 
 import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import battle.logic.GameLogic;
 import battle.logic.GameObserver;
@@ -13,7 +10,6 @@ import battle.logic.Trainer;
  * The BattlePanel class represents the main panel where the battle interface is displayed.
  * It includes the images and stats of the Pokémon, as well as text messages related to the battle.
  */
-
 public class BattlePanel extends JPanel implements GameObserver{
 	
 	private static final long serialVersionUID = 1L;
@@ -27,13 +23,16 @@ public class BattlePanel extends JPanel implements GameObserver{
 	PokemonStatsPanel firstPokemonStats;
 	PokemonStatsPanel secondPokemonStats;
 	
+	//	Panel indicating the current shift
 	ShiftSpecifier shiftSpecifier;
 	
+	// Panel that shows the current profile and the games won by each player
 	GameInfo gameInfo;
 	
 	// Keeps track of the previous trainer's turn
 	int pastTrainer = 0;
 	
+	// Field that specifies which profile I am in
 	int chosenProfile = 0;
 	
 	
@@ -43,6 +42,7 @@ public class BattlePanel extends JPanel implements GameObserver{
      * @param secondTrainer the second trainer
      * @param wichTrainer the index of the current trainer
      * @param gameLogic the game logic instance
+     * @param chosenProfile number that corresponds to the chosen profile
      */
 	public BattlePanel(Trainer firstTrainer, Trainer secondTrainer, int wichTrainer, GameLogic gameLogic, int chosenProfile){
 		
@@ -52,9 +52,11 @@ public class BattlePanel extends JPanel implements GameObserver{
 		
 		this.chosenProfile = chosenProfile;
 		
+		// Initialize the game info panel
 		gameInfo = new GameInfo(chosenProfile, firstTrainer.getName(), secondTrainer.getName(), firstTrainer.getWins(), secondTrainer.getWins());
 		gameInfo.setBounds(0, 0, (int)(Constants.PANEL_WIDTH * 0.17), (int) (Constants.PANEL_HEIGHT * 0.11));
 		
+		// Initialize the game info panel
 		shiftSpecifier = new ShiftSpecifier(firstTrainer.getName(), Color.RED);
 		shiftSpecifier.setBounds(Constants.PANEL_WIDTH - 150, (int) ((Constants.PANEL_HEIGHT / 3)*2 - 30), 150, 30);
 		
@@ -123,7 +125,7 @@ public class BattlePanel extends JPanel implements GameObserver{
 		
 		gameInfo.update();
 		
-		// Update the text panel based on the current trainer
+		// Update the text panel and the shift specifier based on the current trainer
 		if (wichTrainer == 0) {
 			
 			shiftSpecifier.updateName(firstTrainer.getName(), Color.RED);
@@ -139,5 +141,4 @@ public class BattlePanel extends JPanel implements GameObserver{
 		pastTrainer = wichTrainer;
 	}
 }
-
 

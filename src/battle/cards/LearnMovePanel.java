@@ -1,5 +1,4 @@
 package battle.cards;
-
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import javax.swing.border.EmptyBorder;
 import battle.graphics.Constants;
 import battle.graphics.JLayeredTextPanel;
 import battle.logic.*;
-
-
 /**
  * The LearnMovePanel class is a custom JPanel that allows a pokemon to learn a new move.
  * It displays buttons for each move and handles interactions with the game logic.
@@ -213,5 +210,4 @@ public class LearnMovePanel extends JPanel {
         revalidate();
         repaint();
     }
-
 }

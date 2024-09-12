@@ -27,7 +27,7 @@ public class Squirtle extends Pokemon implements Serializable{
 	            
 		},
 				
-		// Lista di evoluzioni
+		// List of evolutions
 		Arrays.asList(
 		new Evolution("Wartortle", 16),
 		new Evolution("Blastoise", 36)

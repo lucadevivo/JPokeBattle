@@ -121,16 +121,13 @@
 	    	
 	    	// Determine whose turn it is and set the move index
 	    	if (currentTrainer == firstTrainer) {
-	    		
-	    		System.out.println("si");
-	    		
+	    			    		
 	    		firstMoveIndex = moveIndex;
 	            wichTrainer = 1;
 	            currentTrainer = secondTrainer;
 	            
 	        } else {
 	            
-	        	System.out.println("sii");
 	        	// Get Pokemon instances for both trainers
 	            Pokemon firstPokemon = firstTrainer.getTeam()[0];
 	            Pokemon secondPokemon = secondTrainer.getTeam()[0];
@@ -145,7 +142,7 @@
 	    	                
 	    	                updateMoveResults(0);
 	    	                
-	    	                if ((battle.endOfBattle() == 0) && secondPokemon.getHp() > 0) {battle.round(secondTrainer, 0, moveIndex);}
+	    	                if ((battle.checkEndOfBattle() == 0) && secondPokemon.getHp() > 0) {battle.round(secondTrainer, 0, moveIndex);}
 	    	                
 	    	                updateMoveResults(1);
 	    	                
@@ -156,7 +153,7 @@
 	            			
 	            			updateMoveResults(1);
 	    	                
-	    	                if ((battle.endOfBattle() == 0) && firstPokemon.getHp() > 0) {battle.round(firstTrainer, 0, firstMoveIndex);}
+	    	                if ((battle.checkEndOfBattle() == 0) && firstPokemon.getHp() > 0) {battle.round(firstTrainer, 0, firstMoveIndex);}
 	    	                
 	    	                updateMoveResults(0);
 	            		}
@@ -184,9 +181,6 @@
 	            
 	            wichTrainer = 0;
 	            currentTrainer = firstTrainer;
-	            
-	            System.out.println(firstPokemon);
-	            System.out.println(secondPokemon);
 	        }
 	    	
 	    	

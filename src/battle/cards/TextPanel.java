@@ -6,7 +6,6 @@ import battle.graphics.Constants;
 import battle.logic.GameLogic;
 import java.awt.*;
 
-
 /**
  * The TextPanel class is a custom JPanel that displays two lines of text with icons.
  * It is used to show messages such as moves used and Pokémon status.

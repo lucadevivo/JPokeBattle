@@ -173,7 +173,7 @@ public class Pokemon implements Serializable {
 	    
 	    if (moveNumber >= 0 && moveNumber < moves.size()) {
 	    		    	
-	    	usedMove = this.getName() + " usa " + moves.get(moveNumber);
+	    	usedMove = this.getName() + " uses " + moves.get(moveNumber);
 	    	
 	    	MoveEffects.applyEffect(moves.get(moveNumber), this, opponent);
 	    	
@@ -257,7 +257,8 @@ public class Pokemon implements Serializable {
 			
 			exp -= (level + 1);
             level++;
-            System.out.println(name + " has risen to level " + level + "!");
+            
+            //System.out.println(name + " has risen to level " + level + "!");
             
             // Check for evolutions
             for (Evolution evolution : evolutions) {

@@ -16,7 +16,6 @@ import java.awt.*;
  * The JLayeredTextPanel class manages different panels for displaying text, choosing moves, and learning new moves during a battle.
  * It uses a layered pane to stack components and manage their visibility.
  */
-
 public class JLayeredTextPanel extends JLayeredPane {
     
 	private static final long serialVersionUID = 1L;
@@ -75,11 +74,11 @@ public class JLayeredTextPanel extends JLayeredPane {
         this.add(background, Integer.valueOf(0));
         
         
-    }
-    
-
-    
-
+    }  
+    /**
+    * paintComponent method overridden to customize component placement
+    * @param g Graphic object used to draw components.
+    */
     @Override
     protected void paintComponent(Graphics g) {
         
@@ -162,6 +161,7 @@ public class JLayeredTextPanel extends JLayeredPane {
         timer.setRepeats(false);
         timer.start();
     }
+    
     /**
      * Shows the "CHOOSE_PANEL" view to allow the player to choose a move.
      */

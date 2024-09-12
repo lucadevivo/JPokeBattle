@@ -1,3 +1,4 @@
+
 package battle.logic;
 
 import java.io.Serializable;
@@ -77,11 +78,11 @@ public class Trainer implements Serializable {
     /**
      * Increments the win count for this trainer.
      */
-    public void incrementWins() {
-    	
-    	System.out.println("PORCO DIO");
+    
+    public void incrementWins() {   	
         wins += 1;
     }
+    
 
     /**
      * Returns a string representation of the Trainer.
@@ -96,4 +97,3 @@ public class Trainer implements Serializable {
         return name + " Level: " + trainerLevel + " Wins: " + wins + " Team: " + teamList;
     }
 }
-

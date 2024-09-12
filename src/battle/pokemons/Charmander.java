@@ -27,7 +27,7 @@ public class Charmander extends Pokemon implements Serializable{
 	            
 	        },
 			
-			// Lista di evoluzioni
+			// List of evolutions
 			Arrays.asList(
 			new Evolution("Charmeleon", 16),
 			new Evolution("Charizard", 36) 

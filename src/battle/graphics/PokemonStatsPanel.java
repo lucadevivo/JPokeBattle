@@ -40,9 +40,11 @@ public class PokemonStatsPanel extends JPanel {
     
     public PokemonStatsPanel(Pokemon pokemon) {
     	
+    	// Set background and layout
         this.setBackground(Constants.BACKGROUND_COLOR);
         this.setLayout(null);
 
+        // Name field for the Pokémon's name
         nameField = new JTextField("Name");
         nameField.setText(pokemon.getName().toUpperCase());
         nameField.setFont(Constants.FIRST_FONT.deriveFont(Font.PLAIN, 70));
@@ -50,6 +52,7 @@ public class PokemonStatsPanel extends JPanel {
         nameField.setBorder(new EmptyBorder(0, 0, 0, 0));
         nameField.setEditable(false);
 
+        // Level field for the Pokémon's level
         levelField = new JTextField("Level");
         levelField.setText(":L" + pokemon.getLevel());
         levelField.setFont(Constants.SECOND_FONT.deriveFont(Font.BOLD, 30));
@@ -57,11 +60,11 @@ public class PokemonStatsPanel extends JPanel {
         levelField.setBorder(new EmptyBorder(0, 0, 0, 0));
         levelField.setEditable(false);
 
-        
-        psLabel = new JLabel("PS:");
+        // Label for HP (Health Points)
+        psLabel = new JLabel("HP:");
         psLabel.setFont(new Font("Pixellari", Font.BOLD, 30));
         
-     
+        // Health bar to display the Pokémon's HP
         healthBar = new JProgressBar();
         
         healthBar.setPreferredSize(new Dimension(Constants.BAR_LENGTH, Constants.HEALTH_BAR_BORDER * 2));
@@ -105,13 +108,17 @@ public class PokemonStatsPanel extends JPanel {
         
         //------------------------------------------------------
 
-    }
-
+    }   
+    /**
+    * paintComponent method overridden to customize component placement
+    * @param g Graphic object used to draw components.
+    */
     @Override
     protected void paintComponent(Graphics g) {
     	
         super.paintComponent(g);
 
+        // Positioning the name field
         int nameLabelWidth = nameField.getPreferredSize().width;
         int nameLabelHeight = nameField.getPreferredSize().height;
 
@@ -120,7 +127,7 @@ public class PokemonStatsPanel extends JPanel {
         
         nameField.setBounds(nameLabelX, nameLabelY, nameLabelWidth, nameLabelHeight);
         
-
+        // Positioning the level field
         int levelFieldWidth = levelField.getPreferredSize().width;
         int levelFieldHeight = levelField.getPreferredSize().height;
 
@@ -129,7 +136,7 @@ public class PokemonStatsPanel extends JPanel {
         
         levelField.setBounds(levelFieldX, levelFieldY, levelFieldWidth, levelFieldHeight);
         
-
+        // Positioning the health bar
         int healthBarWidth = healthBar.getPreferredSize().width;
         int healthBarHeight = healthBar.getPreferredSize().height;
 
@@ -138,7 +145,7 @@ public class PokemonStatsPanel extends JPanel {
         
         healthBar.setBounds(healthBarX, healthBarY, healthBarWidth, healthBarHeight);
         
-        
+        // Positioning the PS label next to the health bar
         int psLabelWidth = psLabel.getPreferredSize().width;
         int psLabelHeight = psLabel.getPreferredSize().height;
         
