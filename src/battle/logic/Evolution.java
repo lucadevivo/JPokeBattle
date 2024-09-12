@@ -25,10 +25,20 @@ public class Evolution implements Serializable{
         this.evolutionLevel = evolutionLevel;
     }
 
+    /**
+     * Returns the name of the evolution.
+     * 
+     * @return The name of the evolved form of the Pokémon.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the level at which the evolution occurs.
+     * 
+     * @return The evolution level.
+     */
     public int getEvolutionLevel() {
         return evolutionLevel;
     }

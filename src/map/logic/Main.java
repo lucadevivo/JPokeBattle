@@ -3,7 +3,16 @@ package map.logic;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+/**
+ * Main class that starts the JPokeBattle game.
+ */	
 public class Main {
+	
+	/**
+     * Main method that launches the game.
+     *
+     * @param args command-line arguments
+     */
 	public static void main(String[] args) {
 		
 		// Create a window (JFrame) for the game

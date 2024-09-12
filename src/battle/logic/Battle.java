@@ -61,6 +61,13 @@ public class Battle {
 	    }		
 	}
 	
+    /**
+     * Determines the final outcome of the battle and updates the trainers' win counts.
+     * If one trainer has no available Pokémon, the other trainer's win count is incremented,
+     * and the current battle stats are saved. 
+     * 
+     * @return 1 if the first trainer wins, 2 if the second trainer wins, or 0 if the battle is still ongoing.
+     */
 	public int endOfBattle() {
 		
 		// Check if the first trainer has no available Pokémon
@@ -83,7 +90,9 @@ public class Battle {
 		
 	}
 	
-	// Method to save stats to a file
+	/**
+     *Method to save stats to a file
+     */
     public void saveStats() {
     	
     	try (FileOutputStream fileOut = new FileOutputStream("res/profiles/profile_" + chosenProfile + ".ser");
@@ -97,9 +106,7 @@ public class Battle {
     	        
     	    } catch (IOException e) {
     	        e.printStackTrace();
-    	    }
-    	
+    	    }  	
     }
-
 }
 

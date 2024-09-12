@@ -6,7 +6,7 @@ package battle.logic;
 public interface BattleObserver {	
 	/**
      * Method called when a battle ends.
-     * @param result The result of the battle:
+     * @param i The result of the battle:
      *               - 0 if the battle is ongoing.
      *               - 1 if the first trainer wins.
      *               - 2 if the second trainer wins.

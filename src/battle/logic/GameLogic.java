@@ -190,6 +190,15 @@
 	        
 	    }
 	    
+	    /**
+	     * Updates the move results for the current turn based on the trainer index.
+	     * This method sets the static variables that store information about the moves used,
+	     * their effectiveness, critical hits, and whether any Pokémon have been exhausted.
+	     * It also resets these variables for the next turn.
+	     * 
+	     * @param trainerIndex The index of the trainer whose move results are being updated.
+	     *                     Use 0 for the first trainer and 1 for the second trainer.
+	     */
 	    private void updateMoveResults(int trainerIndex) {
 	    	
 	        if (trainerIndex == 0) {

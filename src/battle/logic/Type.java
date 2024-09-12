@@ -8,7 +8,16 @@ public enum Type {
     GRASS,      // Grass type
     NORMAL;     // Normal type
     
-    // Method to determine effectiveness of this type against another type
+	/**
+     * Determines the effectiveness of this type against another type.
+     * The effectiveness is represented as a multiplier:
+     * - 0.5 means the move is not very effective.
+     * - 1.0 means the move is normally effective.
+     * - 2.0 means the move is super effective.
+     * 
+     * @param opponentType The type of the opponent Pokémon.
+     * @return A double representing the effectiveness of this type against the opponent type.
+     */
     public double effectivenessAgainst(Type opponentType) {
         
         switch (this) {

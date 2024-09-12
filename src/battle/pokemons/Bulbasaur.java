@@ -8,6 +8,10 @@ import battle.logic.Pokemon;
 import battle.logic.Type;
 import battle.logic.TypeEV;
 
+/**
+ * Represents the Pokemon Bulbasaur.
+ * This class extends the Pokemon class and implements Serializable.
+ */
 public class Bulbasaur extends Pokemon implements Serializable{
 
 	/**
@@ -15,7 +19,10 @@ public class Bulbasaur extends Pokemon implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-
+	/**
+     * Constructs a new Bulbasaur object with its predefined characteristics.
+     * It initializes the base stats, moves, and evolutions.
+     */
 	public Bulbasaur() {
 		
 		super("Bulbasaur", Type.GRASS, /*hp*/45, /*atk*/49, /*def*/49, /*vel*/45, /*Special*/65,/*base XP*/64, new String[]{
@@ -41,13 +48,13 @@ public class Bulbasaur extends Pokemon implements Serializable{
 		unlockableMoves = new HashMap<>();
 		
    
-		//Leech Seed plants a seed on the target that drains 1⁄8 of its maximum HP and restores it to the user
+		//Leech Seed plants a seed on the target that drains an eighth of its maximum HP and restores it to the user
 		unlockableMoves.put(7, "Leech Seed");
 		
 		//Vine Whip deals damage with no additional effect, special
 		unlockableMoves.put(13, "Vine Whip");
 				
-        //Razor Leaf deals damage and has an increased critical hit ratio (1⁄8 instead of 1⁄24), special
+        //Razor Leaf deals damage and has an increased critical hit ratio (an eighth instead of one twenty-fourth), special
 		unlockableMoves.put(27, "Razor Leaf"); 
         
         //Growth raises the user's Attack and Special Attack by one stage each.

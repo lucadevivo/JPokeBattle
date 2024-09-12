@@ -7,7 +7,10 @@ import battle.logic.Evolution;
 import battle.logic.Pokemon;
 import battle.logic.Type;
 import battle.logic.TypeEV;
-
+/**
+ * Represents the Pokemon Charmander.
+ * This class extends the Pokemon class and implements Serializable.
+ */
 public class Charmander extends Pokemon implements Serializable{
 
 	/**
@@ -15,6 +18,10 @@ public class Charmander extends Pokemon implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+     * Constructs a new Charmander object with its predefined characteristics.
+     * It initializes the base stats, moves, and evolutions.
+     */
 	public Charmander() {
 		
 		super("Charmander", Type.FIRE, /*hp*/39, /*atk*/52, /*def*/43, /*vel*/65, /*Special*/55, /*base XP*/62, new String[]{
@@ -30,7 +37,7 @@ public class Charmander extends Pokemon implements Serializable{
 			// List of evolutions
 			Arrays.asList(
 			new Evolution("Charmeleon", 16),
-			new Evolution("Charizard", 36) 
+			new Evolution("Charizard", 3)
 			            
 			),
 			TypeEV.SPEED
@@ -46,7 +53,7 @@ public class Charmander extends Pokemon implements Serializable{
 		//Leer lowers the target's Defense by one stage.
 		unlockableMoves.put(15, "Leer");
 		      
-        //Slash deals damage and has an increased critical hit ratio (1⁄8 instead of 1⁄24).
+        //Slash deals damage and has an increased critical hit ratio (an eighth instead of one twenty-fourth).
 		unlockableMoves.put(30, "Slash");
         
         //10% chance of dealing additional damages, special

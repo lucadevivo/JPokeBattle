@@ -32,7 +32,7 @@ public class ChoosePanel extends JPanel {
     
     /**
      * Constructs a ChoosePanel with the given trainer and game logic.
-     * @param allenatore the trainer
+     * @param trainer the trainer
      * @param gameLogic the game logic
      */
     
@@ -123,7 +123,7 @@ public class ChoosePanel extends JPanel {
     
     /**
      * Updates the buttons based on the new trainer's Pokémon and moves.
-     * @param nuovoAllenatore the new trainer
+     * @param newTrainer the new trainer
      */
     
     public void updateButtons(Trainer newTrainer) {

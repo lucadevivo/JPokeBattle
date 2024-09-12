@@ -33,7 +33,7 @@ public class JLayeredTextPanel extends JLayeredPane {
     /**
      * Constructor for JLayeredTextPanel.
      * Initializes the background, image, and selection panels, and sets up the layout and initial view.
-     * @param allenatore The trainer involved in the battle.
+     * @param trainer The trainer involved in the battle.
      * @param gameLogic The game logic instance managing the battle state.
      */
     public JLayeredTextPanel(Trainer trainer, GameLogic gameLogic) {

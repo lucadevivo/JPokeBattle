@@ -74,6 +74,9 @@ public class GameInfo extends JPanel{
         winsLabel.setBounds(winsLabelX, winsLabelY, winsLabelWidth, winsLabelHeight);
     }
  
+    /**
+     * Updates the panel by revalidating and repainting it.
+     */
     public void update() {
     
         revalidate();

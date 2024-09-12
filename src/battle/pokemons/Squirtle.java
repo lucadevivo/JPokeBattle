@@ -8,6 +8,10 @@ import battle.logic.Pokemon;
 import battle.logic.Type;
 import battle.logic.TypeEV;
 
+/**
+ * Represents the Pokemon Squirtle.
+ * This class extends the Pokemon class and implements Serializable.
+ */
 public class Squirtle extends Pokemon implements Serializable{
 
 	/**
@@ -15,6 +19,10 @@ public class Squirtle extends Pokemon implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+     * Constructs a new Squirtle object with its predefined characteristics.
+     * It initializes the base stats, moves, and evolutions.
+     */
 	public Squirtle() {
 		
 		super("Squirtle", Type.WATER, /*hp*/44, /*atk*/48, /*def*/65, /*vel*/43, /*Special*/57, /*base XP*/63, new String[]{
