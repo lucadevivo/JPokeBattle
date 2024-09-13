@@ -5,13 +5,17 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-// Manages sound effects and music playback
+/**
+ * The Sound class manages sound effects and music playback by using some .wav files
+ */
 public class Sound {
 
     private Clip clip; // Clip used to play the audio
     private URL[] soundURL = new URL[30]; // Array to hold URLs for different sound files
 
-    // Constructor initializes the soundURLs array with paths to audio files
+    /**
+     * Constructor initializes the soundURLs array with paths to audio files
+     */
     public Sound() {
         soundURL[0] = getClass().getResource("/soundeffects/titleSong.wav"); // Title screen music
         soundURL[1] = getClass().getResource("/soundeffects/palletTown.wav"); // Pallet Town music

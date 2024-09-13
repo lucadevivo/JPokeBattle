@@ -2,12 +2,19 @@ package map.logic;
 
 import map.entity.Entity;
 
+/**
+ * The CollisionChecker class detects collisions between entities and tiles,
+ * ensuring that the player or NPCs cannot pass through solid objects.
+ */
 public class CollisionChecker {
 
     // Reference to the GamePanel, used for accessing game elements like tiles and entities
     GamePanel gp;
 
-    // Constructor that initializes the CollisionChecker with the game panel reference
+    /**
+     * Constructor that initializes the CollisionChecker with the game panel reference
+     * @param GamePanel gp
+     */
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }

@@ -3,7 +3,10 @@ package map.logic;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-// Handles keyboard input and updates game state accordingly
+/**
+ * The KeyHandler class is created to handle the different game states. It maps specific
+ *  key presses to game actions and updates the state of the  game accordingly.
+ */
 public class KeyHandler implements KeyListener {
 
     GamePanel gp; // Reference to the main game panel
@@ -11,7 +14,10 @@ public class KeyHandler implements KeyListener {
     // DEBUG
     boolean checkDrawTime = false; // Toggle for checking draw time
 
-    // Constructor initializes the KeyHandler with a reference to the GamePanel
+    /**
+     * Constructor initializes the KeyHandler with a reference to the GamePanel
+     * @param gamePanel gp
+     */
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }

@@ -9,6 +9,10 @@ import javax.imageio.ImageIO;
 import map.logic.GamePanel;
 import map.logic.UtilityTool;
 
+/**
+ * The Entity class is designed to draw and manage both the characters' peculiarities;
+ * for example their phisical dimensions, their hitboxes, their dialogues etc.
+ */
 public class Entity {
 
     // Reference to the game panel, which holds game-related information and context
@@ -35,7 +39,10 @@ public class Entity {
     // Index of the current dialogue
     int dialogueIndex = 0;
 
-    // Constructor that initializes the entity with a reference to the game panel
+    /**
+     * Constructs an Entity with the given gamepanel logic.
+     * @param gamePanel gp
+     */
     public Entity(GamePanel gp) {
         this.gp = gp;
     }

@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 import map.logic.GamePanel;
 import map.logic.KeyHandler;
 
+/**
+ * The Player class represents the main player character in the game, 
+ * handling movement, interactions, animations, and input controls.
+ */
 public class Player extends Entity {
 
     // Reference to the KeyHandler for handling player input
@@ -23,7 +27,11 @@ public class Player extends Entity {
         standingDirection = direction;
     }
 
-    // Constructor to initialize the player with the game panel and key handler
+    /**
+     * Constructor to initialize the player with the game panel and key handler
+     * @param gp
+     * @param keyH
+     */
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
         this.keyH = keyH;

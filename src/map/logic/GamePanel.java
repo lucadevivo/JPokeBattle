@@ -24,6 +24,11 @@ import map.entity.Entity;
 import map.entity.Player;
 import map.tile.TileManager;
 
+/**
+ * GamePanel is the core component of the game, handling rendering, updating,
+ * game states, collision checks, and transitions between different scenes like battles.
+ * It also manages the game loop, which runs at 60 FPS, and initiates background music.
+ */
 public class GamePanel extends JPanel implements Runnable, BattleObserver {
 
     private static final long serialVersionUID = 1L;
@@ -74,7 +79,9 @@ public class GamePanel extends JPanel implements Runnable, BattleObserver {
     private int currentMusic = -1;
     public int chosenProfile = 0;
 
-    // Constructor to set up the game panel
+    /**
+     * Constructor to set up the game panel
+     */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);

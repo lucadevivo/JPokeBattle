@@ -2,10 +2,17 @@ package map.logic;
 
 import map.entity.NPC_Opponent;
 
+/**
+ * The AssetSetter class is responsible for placing NPCs and other 
+ * assets in the game world at specific locations.
+ */
 public class AssetSetter {
 	
 	GamePanel gp;
-	
+	/**
+	 * Constructor to initialize the npc with the game panel
+	 * @param gp
+	 */
 	public AssetSetter(GamePanel gp) {
 		
 		this.gp = gp;

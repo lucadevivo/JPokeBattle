@@ -2,9 +2,17 @@ package map.entity;
 
 import map.logic.GamePanel;
 
+/**
+ * The NPC_Opponent class represents an opponent NPC in the game. 
+ * It manages the NPC's image, movement, and dialogue interactions 
+ * with the player.
+ */
 public class NPC_Opponent extends Entity {
 
-    // Constructor that initializes the NPC_Opponent with the game panel reference
+	/**
+     * Constructor that initializes the NPC_Opponent with the game panel reference
+     * @param GamePanel gp
+     */
     public NPC_Opponent(GamePanel gp) {
         super(gp);
         // Set the initial direction and speed of the NPC

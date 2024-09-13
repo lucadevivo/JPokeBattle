@@ -9,6 +9,11 @@ import javax.imageio.ImageIO;
 import map.logic.GamePanel;
 import map.logic.UtilityTool;
 
+/**
+ * The TileManager class handles tile management, including loading tile images,
+ * setting up tile properties, loading the map layout from a file, and drawing tiles 
+ * on the screen based on the player's position.
+ */
 public class TileManager extends Tile {
 
     // Reference to the main game panel
@@ -19,8 +24,11 @@ public class TileManager extends Tile {
 
     // 2D array representing the map layout with tile indices
     public int mapTileNum[][];
-
-    // Constructor initializes TileManager with a reference to the GamePanel
+    
+    /**
+     * Constructor initializes TileManager with a reference to the GamePanel
+     * @param gp
+     */
     public TileManager(GamePanel gp) {
         this.gp = gp;
 

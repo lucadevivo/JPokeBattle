@@ -11,6 +11,11 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import battle.graphics.Constants;
 
+/**
+ * The UI class handles rendering the game's user interface, including title, dialogue, 
+ * end, and profile screens. It manages UI state, displays messages, and updates 
+ * visuals based on the current game state.
+ */
 public class UI {
 
     // Reference to the main game panel, used for accessing game states and settings
@@ -36,7 +41,10 @@ public class UI {
     // Array to save "empty" status in profiles
     private boolean[] profilesEmpty = new boolean[3];
 
-    // Constructor initializes the UI and checks profiles
+    /**
+     * Constructor initializes the UI and checks profiles
+     * @param gp
+     */
     public UI(GamePanel gp) {
         this.gp = gp;
         loadImage();
