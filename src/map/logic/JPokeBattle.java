@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 /**
  * Main class that starts the JPokeBattle game.
  */	
-public class Main {
+public class JPokeBattle {
 	
 	/**
      * Main method that launches the game.
