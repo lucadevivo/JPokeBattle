@@ -13,7 +13,7 @@ public class CollisionChecker {
 
     /**
      * Constructor that initializes the CollisionChecker with the game panel reference
-     * @param GamePanel gp
+     * @param gp
      */
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;

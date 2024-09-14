@@ -41,7 +41,7 @@ public class Entity {
 
     /**
      * Constructs an Entity with the given gamepanel logic.
-     * @param gamePanel gp
+     * @param gp
      */
     public Entity(GamePanel gp) {
         this.gp = gp;

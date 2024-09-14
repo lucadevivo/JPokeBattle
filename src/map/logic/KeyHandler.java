@@ -16,7 +16,7 @@ public class KeyHandler implements KeyListener {
 
     /**
      * Constructor initializes the KeyHandler with a reference to the GamePanel
-     * @param gamePanel gp
+     * @param gp
      */
     public KeyHandler(GamePanel gp) {
         this.gp = gp;

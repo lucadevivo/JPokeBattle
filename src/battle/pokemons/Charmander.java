@@ -37,7 +37,7 @@ public class Charmander extends Pokemon implements Serializable{
 			// List of evolutions
 			Arrays.asList(
 			new Evolution("Charmeleon", 16),
-			new Evolution("Charizard", 3)
+			new Evolution("Charizard", 36)
 			            
 			),
 			TypeEV.SPEED
@@ -59,7 +59,7 @@ public class Charmander extends Pokemon implements Serializable{
         //10% chance of dealing additional damages, special
 		unlockableMoves.put(38, "Flamethrower");
               
-        //Fire Spin cause the opponent to loose 1/8 of his maximum health, special
+        //Fire Spin cause the opponent to loose an eighth of his maximum health, special
 		unlockableMoves.put(46, "Fire Spin");
         
 		

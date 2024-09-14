@@ -11,7 +11,7 @@ public class NPC_Opponent extends Entity {
 
 	/**
      * Constructor that initializes the NPC_Opponent with the game panel reference
-     * @param GamePanel gp
+     * @param gp
      */
     public NPC_Opponent(GamePanel gp) {
         super(gp);
