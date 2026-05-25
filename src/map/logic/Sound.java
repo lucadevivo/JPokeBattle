@@ -6,7 +6,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 /**
- * The Sound class manages sound effects and music playback by using some .wav files
+ * The Sound class manages sound effects and music playback by using some .WAV files
  */
 public class Sound {
 
@@ -17,11 +17,11 @@ public class Sound {
      * Constructor initializes the soundURLs array with paths to audio files
      */
     public Sound() {
-        soundURL[0] = getClass().getResource("/soundeffects/titleSong.wav"); // Title screen music
-        soundURL[1] = getClass().getResource("/soundeffects/palletTown.wav"); // Pallet Town music
-        soundURL[2] = getClass().getResource("/soundeffects/trainerBattle.wav"); // Trainer battle music
-        soundURL[3] = getClass().getResource("/soundeffects/wonBattle.wav"); // Victory sound
-        soundURL[4] = getClass().getResource("/soundeffects/lostBattle.wav"); // Defeat sound
+        soundURL[0] = getClass().getResource("/soundeffects/titleSong.WAV"); // Title screen music
+        soundURL[1] = getClass().getResource("/soundeffects/palletTown.WAV"); // Pallet Town music
+        soundURL[2] = getClass().getResource("/soundeffects/trainerBattle.WAV"); // Trainer battle music
+        soundURL[3] = getClass().getResource("/soundeffects/wonBattle.WAV"); // Victory sound
+        soundURL[4] = getClass().getResource("/soundeffects/lostBattle.WAV"); // Defeat sound
     }
 
     // Loads the audio file at the specified index into the clip
