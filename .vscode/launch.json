@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "JPokeBattle",
+            "request": "launch",
+            "mainClass": "map.logic.JPokeBattle",
+            "projectName": "JPokeBattle"
+        }
+    ]
+}
