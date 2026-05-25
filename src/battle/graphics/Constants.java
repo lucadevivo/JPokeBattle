@@ -36,8 +36,10 @@ public class Constants {
         try (InputStream is = Constants.class.getResourceAsStream("/font/pokemon_fire_red.ttf")) {
             if (is != null) {
                 tempFont = Font.createFont(Font.TRUETYPE_FONT, is);
+                java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
+                ge.registerFont(tempFont);
             } else {
-                System.err.println("Font resource not found.");
+                System.err.println("Font resource not found: /font/pokemon_fire_red.ttf");
             }
         } catch (FontFormatException e) {
             e.printStackTrace();
@@ -53,8 +55,10 @@ public class Constants {
         try (InputStream is = Constants.class.getResourceAsStream("/font/Pixellari.ttf")) {
             if (is != null) {
                 tempFont = Font.createFont(Font.TRUETYPE_FONT, is);
+                java.awt.GraphicsEnvironment ge = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
+                ge.registerFont(tempFont);
             } else {
-                System.err.println("Font resource not found.");
+                System.err.println("Font resource not found: /font/Pixellari.ttf");
             }
         } catch (FontFormatException e) {
             e.printStackTrace();

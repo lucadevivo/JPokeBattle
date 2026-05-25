@@ -26,6 +26,10 @@ public class Sound {
 
     // Loads the audio file at the specified index into the clip
     public void setFile(int i) {
+        if (soundURL[i] == null) {
+            System.err.println("Sound file not found for index: " + i);
+            return;
+        }
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]); // Get audio input stream
             clip = AudioSystem.getClip(); // Get a clip resource
