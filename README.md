@@ -1,43 +1,37 @@
-# JPokeBattle - Java Pokemon Battle Simulator
+# JPokeBattle - Simulatore di Battaglie Pokémon in Java
 
-JPokeBattle è un simulatore di battaglie Pokémon ispirato ai classici titoli per GameBoy (Pokémon Rosso/Blu). Sviluppato originariamente in Eclipse, il progetto è stato modernizzato per supportare **VS Code** e **Maven**.
+JPokeBattle è un simulatore di combattimenti Pokémon ispirato ai titoli classici per GameBoy. Originariamente sviluppato in ambiente Eclipse, il progetto è stato aggiornato per supportare lo sviluppo moderno con VS Code e la gestione delle build tramite Maven.
 
-## 🚀 Caratteristiche
+## Descrizione del progetto
 
-- **Sistema di Battaglia**: Implementazione accurata delle meccaniche di combattimento Pokémon.
-- **Esplorazione**: Mappa interattiva con gestione delle collisioni e NPC.
-- **Grafica Retro**: Asset originali e interfaccia fedele allo stile 8-bit.
-- **Audio**: Effetti sonori e colonne sonore originali del gioco.
-- **Evoluzioni e Livellamento**: Sistema di crescita dei Pokémon e apprendimento nuove mosse.
+Il software ricrea le dinamiche di lotta Pokémon, includendo una fase di esplorazione su mappa e un sistema di combattimento a turni completo. Sono presenti meccaniche di collisione, gestione di NPC, apprendimento di mosse ed evoluzioni.
 
-## 🛠️ Requisiti
+## Requisiti di sistema
 
-- **Java JDK 17** o superiore.
-- **Maven** (opzionale, per la build da riga di comando).
-- **VS Code** (consigliato) con l'estensione "Extension Pack for Java".
+- Java JDK 17 o superiore.
+- Maven (necessario per la compilazione da riga di comando).
+- VS Code con "Extension Pack for Java" (opzione consigliata per lo sviluppo).
 
-## 💻 Come Giocare / Sviluppare
+## Compilazione ed Esecuzione
 
-### Con VS Code (Consigliato)
-1. Apri la cartella del progetto in VS Code.
-2. Installa l'estensione **Extension Pack for Java**.
-3. Premi `F5` per avviare il gioco (la configurazione è già presente in `.vscode/launch.json`).
+### Utilizzo con VS Code
+Il progetto include le configurazioni necessarie nella cartella `.vscode`. È sufficiente aprire la root del progetto con VS Code e premere `F5` per avviare il gioco.
 
-### Con Maven (Per generare l'eseguibile)
-Per creare un file JAR eseguibile che includa tutte le risorse:
+### Generazione del pacchetto eseguibile (JAR)
+Tramite Maven è possibile generare un file JAR che include tutte le risorse multimediali necessarie (immagini, suoni e mappe):
 ```bash
 mvn clean package
 ```
-Il file generato si troverà nella cartella `target/JPokeBattle-1.0-SNAPSHOT.jar`. Puoi eseguirlo con:
+Il file generato sarà disponibile in `target/JPokeBattle-1.0-SNAPSHOT.jar` e potrà essere eseguito con:
 ```bash
 java -jar target/JPokeBattle-1.0-SNAPSHOT.jar
 ```
 
-## 📂 Struttura del Progetto
-- `src/`: Codice sorgente Java organizzato in package (`battle`, `map`).
-- `res/`: Risorse multimediali (immagini, suoni, font, mappe).
-- `pom.xml`: Configurazione Maven per la gestione delle dipendenze e build.
-- `.vscode/`: Configurazioni per lo sviluppo ottimale in Visual Studio Code.
+## Organizzazione dei file
+
+- `src/`: Codice sorgente Java suddiviso nei package `battle` e `map`.
+- `res/`: Asset multimediali (immagini, suoni, font e file di testo per le mappe).
+- `pom.xml`: Configurazione Maven per dipendenze e build.
 
 ---
-Sviluppato da **Luca De Vivo**.
+Sviluppato da Luca De Vivo.
