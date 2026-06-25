@@ -34,4 +34,4 @@ java -jar target/JPokeBattle-1.0-SNAPSHOT.jar
 - `pom.xml`: Configurazione Maven per dipendenze e build.
 
 ---
-Sviluppato da Luca De Vivo.
+Sviluppato da: Luca De Vivo, Lorenzo Gentilezza.
